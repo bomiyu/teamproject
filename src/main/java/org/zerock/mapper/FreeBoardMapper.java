@@ -18,8 +18,7 @@ public interface FreeBoardMapper {
 	public void insert(FreeBoardVO board);
 
 	public void insertSelectKey(FreeBoardVO board);
-	// 1. seq_board의 nextval을 먼저 조회(select)
-	// 2. 조회된 nextval을 insert에서 사용
+
 	
 	
 	public FreeBoardVO read(Long bno);
