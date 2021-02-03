@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">	
+	 	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202102021120_high?TNS_ADMIN=/home/opc/wallet"></property>
+		<property name="username" value="admin"></property>
+		<property name="password" value="Fivefivefive5"></property>
+		<property name="maximumPoolSize" value="2"></property>
+	</bean>
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close"> <!-- DBCP, 빈 사라질 때 close() -->
+		<constructor-arg ref="hikariConfig"></constructor-arg>
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property> <!-- injection, mybatis는 conn 열고 닫고, datasource(CP)에 의존 -->
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  		<constructor-arg ref="dataSource" />
+	</bean>
+	
+	<mybatis-spring:scan base-package="org.zerock.mapper"/> <!-- mybatis(DB접근자)한테 인터페이스 존재 알리기, mybatis가 구현 클래스 만듦 -->	
+	<context:component-scan base-package="org.zerock.service"/> <!-- 인터페이스를 bean으로 등록! -->
+	
+	<tx:annotation-driven />
+</beans>
