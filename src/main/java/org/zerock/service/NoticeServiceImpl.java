@@ -21,8 +21,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public void register(NoticeVO vo) {
-		mapper.insertSelectKey(vo);
+	public void register(NoticeVO notice) {
+		mapper.insertSelectKey(notice);
 	}
 	
 	@Override
@@ -31,8 +31,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public boolean modify(NoticeVO vo) {
-		return mapper.update(vo) == 1;
+	public boolean modify(NoticeVO notice) {
+		return mapper.update(notice) == 1;
 	}
 	
 	@Override

@@ -8,11 +8,11 @@ public interface NoticeService {
 
 	public int getTotal();
 	
-	public void register(NoticeVO vo);
+	public void register(NoticeVO notice);
 	
 	public NoticeVO get(Long no);
 	
-	public boolean modify(NoticeVO vo);
+	public boolean modify(NoticeVO notice);
 	
 	public boolean delete(Long no);
 	

@@ -15,7 +15,7 @@
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202102021120_high?TNS_ADMIN=/home/opc/teamwallet"></property>
 		<property name="username" value="admin"></property>
 		<property name="password" value="Fivefivefive5"></property>
-		<property name="maximumPoolSize" value="2"></property>
+		<property name="maximumPoolSize" value="1"></property>
 	</bean>
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close"> <!-- DBCP, 빈 사라질 때 close() -->
 		<constructor-arg ref="hikariConfig"></constructor-arg>

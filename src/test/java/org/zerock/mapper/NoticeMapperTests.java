@@ -1,5 +1,6 @@
 package org.zerock.mapper;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -29,8 +30,9 @@ public class NoticeMapperTests {
 	@Test
 	public void testInsertSelectKey() {
 		NoticeVO vo = new NoticeVO();
-		vo.setTitle("title1");
-		vo.setContent("content1");
+		vo.setCategory("event");
+		vo.setTitle("title");
+		vo.setContent("content");
 		vo.setMember_no(1);
 		
 		mapper.insertSelectKey(vo);
@@ -57,7 +59,8 @@ public class NoticeMapperTests {
 	@Test
 	public void testUpdate() {
 		NoticeVO vo = new NoticeVO();
-		vo.setNo(1);
+		vo.setNo(23);
+		vo.setCategory("notice");
 		vo.setTitle("new title");
 		vo.setContent("new content");
 		
@@ -67,10 +70,19 @@ public class NoticeMapperTests {
 	
 	@Test
 	public void testDelete() {
-		int cnt = mapper.delete(21L);
-		log.info(cnt);
+		NoticeVO vo = new NoticeVO();
+		vo.setTitle("title");
+		vo.setContent("content");
+		vo.setMember_no(1);
 		
-		assertNull(mapper.read(21L));
+		mapper.insertSelectKey(vo);
+		
+		log.info("no: " + vo.getNo());
+		
+		int cnt = mapper.delete(vo.getNo());
+		
+		assertEquals(1, cnt);
+		assertNull(mapper.read(vo.getNo()));
 	}
 	
 	@Test

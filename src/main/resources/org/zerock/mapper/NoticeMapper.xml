@@ -11,11 +11,11 @@
 	</select>
 	
 	<insert id="insertSelectKey">
-      <selectKey order="AFTER" resultType="long">
-      	SELECT no FROM notice
+      <selectKey keyProperty="no" order="BEFORE" resultType="long">
+      	SELECT seq_notice.nextval FROM dual
       </selectKey>
-   	  INSERT INTO notice (title, content, member_no)
-      VALUES (#{title}, #{content}, #{member_no} )
+   	  INSERT INTO notice (no, category, title, content, member_no)
+      VALUES (#{no}, #{category}, #{title}, #{content}, #{member_no})
    </insert>
    
    <select id="read" resultType="org.zerock.domain.NoticeVO">
@@ -30,7 +30,7 @@
    
    <update id="update">
       UPDATE notice
-      SET title = #{title}, content = #{content} 
+      SET category = #{category}, title = #{title}, content = #{content} 
       WHERE no = #{no}
    </update>
    

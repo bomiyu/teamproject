@@ -3,8 +3,9 @@
 -- -----------------------------------------------------
 DROP TABLE MEMBER;
 
+CREATE SEQUENCE seq_member;
 CREATE TABLE MEMBER (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   id VARCHAR2(45) UNIQUE NOT NULL,
   email VARCHAR2(45) UNIQUE NOT NULL,
   password VARCHAR2(45) NOT NULL,
@@ -14,14 +15,14 @@ CREATE TABLE MEMBER (
   PRIMARY KEY (no)
 );
 
-
 -- -----------------------------------------------------
 -- Table `MOUNTAIN`
 -- -----------------------------------------------------
-DROP TABLE MOUNTAIN ;
+DROP TABLE MOUNTAIN;
 
+CREATE SEQUENCE seq_mountain;
 CREATE TABLE MOUNTAIN (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   mName VARCHAR2(45) NOT NULL,
   mLoc VARCHAR2(200) NOT NULL,
   height NUMBER DEFAULT 0 NOT NULL,
@@ -38,8 +39,9 @@ VALUES ('도봉산', '위치', 1300, 2);
 -- -----------------------------------------------------
 DROP TABLE FREEBOARD;
 
+CREATE SEQUENCE seq_freeboard;
 CREATE TABLE FREEBOARD (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   title VARCHAR2(100) NOT NULL,
   content VARCHAR2(4000) NOT NULL,
   regdate DATE DEFAULT sysdate NOT NULL,
@@ -54,8 +56,9 @@ CREATE TABLE FREEBOARD (
 -- -----------------------------------------------------
 DROP TABLE COURSE;
 
+CREATE SEQUENCE seq_course;
 CREATE TABLE COURSE (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   difficulty VARCHAR2(45) NOT NULL,
   time VARCHAR2(45) NOT NULL, -- form: __H __M
   points VARCHAR2(200) NOT NULL,
@@ -72,8 +75,9 @@ VALUES ('low', '1시간', '정상', 1);
 -- -----------------------------------------------------
 DROP TABLE WISH;
 
+CREATE SEQUENCE seq_wish;
 CREATE TABLE WISH (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   member_no NUMBER NOT NULL,
   mountain_no NUMBER NOT NULL,
   PRIMARY KEY (no)
@@ -85,8 +89,9 @@ CREATE TABLE WISH (
 -- -----------------------------------------------------
 DROP TABLE NOTICE ;
 
+CREATE SEQUENCE seq_notice;
 CREATE TABLE NOTICE (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   title VARCHAR2(100) NOT NULL,
   content VARCHAR2(4000) NOT NULL,
   regdate DATE DEFAULT sysdate NOT NULL,
@@ -95,14 +100,18 @@ CREATE TABLE NOTICE (
   PRIMARY KEY (no)
 );
 
+ALTER TABLE notice 
+ADD category VHARCHAR2(45) DEFAULT 'notice' NOT NULL
+ADD CONSTRAINT notice_category_ck CHECK (category IN ('notice','event'));
 
 -- -----------------------------------------------------
 -- Table `FREPLY`
 -- -----------------------------------------------------
 DROP TABLE FREPLY;
 
+CREATE SEQUENCE seq_freply;
 CREATE TABLE FREPLY (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   reply VARCHAR2(500) NOT NULL,
   regdate VARCHAR2(45) DEFAULT sysdate NULL,
   board_no NUMBER NOT NULL,
@@ -115,8 +124,9 @@ CREATE TABLE FREPLY (
 -- -----------------------------------------------------
 DROP TABLE NREPLY;
 
+CREATE SEQUENCE seq_nreply;
 CREATE TABLE NREPLY (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   reply VARCHAR2(500) NOT NULL,
   regdate VARCHAR2(45) DEFAULT sysdate NULL,
   notice_no NUMBER NOT NULL,
@@ -129,8 +139,9 @@ CREATE TABLE NREPLY (
 -- -----------------------------------------------------
 DROP TABLE FESTIVAL;
 
+CREATE SEQUENCE seq_festival;
 CREATE TABLE FESTIVAL (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   eName VARCHAR2(45) NOT NULL,
   description VARCHAR2(1000) NOT NULL,
   month NUMBER NOT NULL,
@@ -148,8 +159,9 @@ VALUES ('도봉산 축제', '신나는 축제', 13, 1);
 -- -----------------------------------------------------
 DROP TABLE RESTAURANT;
 
+CREATE SEQUENCE seq_restaurant;
 CREATE TABLE RESTAURANT (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   rName VARCHAR2(45) NOT NULL,
   rLoc VARCHAR2(200) NOT NULL,
   contact VARCHAR2(45) NOT NULL,
@@ -165,8 +177,9 @@ CREATE TABLE RESTAURANT (
 -- -----------------------------------------------------
 DROP TABLE PLACE;
 
+CREATE SEQUENCE seq_place;
 CREATE TABLE PLACE (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   eName VARCHAR2(45) NOT NULL,
   description VARCHAR2(1000) NOT NULL,
   pLoc VARCHAR2(200) NOT NULL,
@@ -180,8 +193,9 @@ CREATE TABLE PLACE (
 -- -----------------------------------------------------
 DROP TABLE CONQUEST;
 
+CREATE SEQUENCE seq_conquest;
 CREATE TABLE CONQUEST (
-  no NUMBER GENERATED AS IDENTITY,
+  no NUMBER,
   member_no NUMBER NOT NULL,
   mountain_no NUMBER NOT NULL,
   condate DATE DEFAULT sysdate NOT NULL
