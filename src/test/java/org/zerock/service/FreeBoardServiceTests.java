@@ -93,8 +93,8 @@ public class FreeBoardServiceTests {
 	@Test
 	public void testUpdate() {
 		FreeBoardVO vo = new FreeBoardVO();
-		vo.setTitle("수정된 제목");
-		vo.setContent("수정된 내용");
+		vo.setTitle("수정전 제목");
+		vo.setContent("수정전 내용");
 		vo.setMember_no(1);
 		
 		service.register(vo);
@@ -109,6 +109,8 @@ public class FreeBoardServiceTests {
 		assertTrue(service.modify(up));
 		
 		FreeBoardVO up2 = service.get(vo.getNo());
+		
+		log.info("생성된 게시물  번호>>>>>>" + vo.getNo());
 		
 		assertEquals("수정된 제목", up2.getTitle());
 		assertEquals("수정된 내용", up2.getContent());
