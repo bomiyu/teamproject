@@ -6,32 +6,36 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-	
-<!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
-		 -->
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202102021120_high?TNS_ADMIN=/home/opc/teamwallet"></property>
+
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"></property> -->
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@db202102021120_high?TNS_ADMIN=/home/opc/teamwallet"></property>
 		<property name="username" value="admin"></property>
 		<property name="password" value="Fivefivefive5"></property>
-		
+		<property name="maximumPoolSize" value="1"></property>
 	</bean>
-	
+
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-	      destroy-method="close">
+		destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
-		
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
-	<mybatis-spring:scan base-package="org.zerock.mapper"/>
-	
-	
-	
+
+	<mybatis-spring:scan
+		base-package="org.zerock.mapper" />
+
+
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:component-scan base-package="org.zerock.service"></context:component-scan>
+	<context:component-scan
+		base-package="org.zerock.service"></context:component-scan> <!-- 패키지조사를 위해 Namespaces에 context를 check설정후에 기입해줌 -->
 </beans>

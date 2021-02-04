@@ -4,94 +4,62 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.zerock.mapper.FreeBoardMapper">
-<!-- 
-<sql id="criteria">
-<where>
-	<foreach item="type" collection="typeArr" separator="OR">
-		<choose>
-			<when test="type == 'T'.toString()">
-				title LIKE '%' || #{keyword} || '%'
-			</when>
-			<when test="type == 'C'.toString()">
-				content LIKE '%' || #{keyword} || '%'
-			</when>
-			<when test="type == 'W'.toString()">
-				writer LIKE '%' || #{keyword} || '%'
-			</when>
-		</choose>
-	</foreach>
-</where>
-</sql>
- -->
+	<!-- <sql id="criteria"> <where> <foreach item="type" collection="typeArr" 
+		separator="OR"> <choose> <when test="type == 'T'.toString()"> title LIKE 
+		'%' || #{keyword} || '%' </when> <when test="type == 'C'.toString()"> content 
+		LIKE '%' || #{keyword} || '%' </when> <when test="type == 'W'.toString()"> 
+		writer LIKE '%' || #{keyword} || '%' </when> </choose> </foreach> </where> 
+		</sql> -->
 
 	<select id="getList" resultType="org.zerock.domain.FreeBoardVO">
 <![CDATA[
 		select * from FreeBoard where no > 0
-]]>		
-		
+]]>
+
 	</select>
 	<insert id="insertSelectKey">
-      <selectKey order="AFTER" resultType="long">
-         SELECT SELECT no FROM FreeBoard
-      </selectKey>
-        
-        INSERT INTO FreeBoard (title, content, member_no)
-      VALUES (#{title}, #{content}, #{member_no} )
-      
-   </insert>
-		<select id="read" resultType="org.zerock.domain.FreeBoardVO">
-		select * from FreeBoard where no = #{no}
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select seq_freeboard.nextval FROM dual
+		</selectKey>
+
+		INSERT INTO FreeBoard (no ,title, content, member_no)
+		VALUES (#{no},
+		#{title}, #{content}, #{member_no} )
+
+	</insert>
+	<select id="read" resultType="org.zerock.domain.FreeBoardVO">
+		select * from FreeBoard where no =
+		#{no}
 	</select>
-		<delete id="delete">
+	<delete id="delete">
 		delete from FreeBoard where no = #{no}
 	</delete>
-	
-	
-	<!-- <select id="getListWithPaging" resultType="org.zerock.domain.FreeBoardVO">
-<![CDATA[	
-	SELECT
-	 bno, title, content,
-	 writer, regdate, updatedate, replycnt
-	FROM
-	 (
-	  SELECT 
-	   ROW_NUMBER() OVER (ORDER BY bno DESC) rn,
-	   bno, title, content, writer,
-	   regdate, updatedate, replycnt
-	  FROM
-	   tbl_board
-]]>
-	
-	<include refid="criteria"></include>
-
-<![CDATA[
-	 )
-	WHERE
-	 rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount}
-]]>		
-	</select>
-	
-
 	<update id="update">
-	UPDATE tbl_board
-	SET
-	  title = #{title},
-	  content = #{content},
-	  writer = #{writer},
-	  updateDate = sysdate
-	WHERE
-	  bno = #{bno}
+		UPDATE FreeBoard
+		SET
+		title = #{title},
+		content =
+		#{content},
+		member_no = #{member_no}
+		WHERE
+		no = #{no}
 	</update>
-	
-	<select id="getTotalCount" resultType="int">
-	SELECT count(*) FROM tbl_board	
-	<include refid="criteria"></include>
+
+<!-- 	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM FreeBoard
+		<include refid="criteria"></include>
 	</select>
-	
-	<update id="updateReplyCnt">
-	UPDATE tbl_board SET replycnt = replycnt + #{amount}
-	WHERE bno = #{bno}
+	<update id="updateCnt">
+		UPDATE FreeBoard SET cnt = cnt + #{amount} WHERE no = #{no}
 	</update> -->
+
+	<!-- <select id="getListWithPaging" resultType="org.zerock.domain.FreeBoardVO"> 
+		<![CDATA[ SELECT no, title, content, regdate, cnt, member_no FROM ( SELECT 
+		ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, title, content, regdate, cnt, 
+		FROM FreeBoard ]]> <include refid="criteria"></include> <![CDATA[ ) WHERE 
+		rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount} ]]> 
+		</select> -->
+	<!-- -->
 </mapper>
 
 

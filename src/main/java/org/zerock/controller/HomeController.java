@@ -22,7 +22,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET) //프로젝트명 이후에 아무런 주소없이 싱행을 시키면 해당메소드 실행
+	@RequestMapping(value = "/", method = RequestMethod.GET) //프로젝트명 이후에 아무런 주소없이 실행을 시키면 해당메소드 실행
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		

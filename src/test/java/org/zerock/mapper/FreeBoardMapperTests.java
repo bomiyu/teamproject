@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class BoardMapperTests {
+public class FreeBoardMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardMapper mapper;
@@ -68,14 +68,12 @@ public class BoardMapperTests {
 	 * 
 	 * }
 	 */
-//	@Test
-//	public void testGetList() {
-//		List<FreeBoardVO> list = mapper.getList();
-//
-//		assertNotEquals(list.size(), 0);
-//	}
+	@Test
+	public void testGetList() {
+		List<FreeBoardVO> list = mapper.getList();
 
-
+		assertNotEquals(list.size(), 0);
+	}
 
 	@Test
 	public void testInsertSelectKey() {
@@ -106,55 +104,66 @@ public class BoardMapperTests {
 
 		mapper.insertSelectKey(vo);// 새로등록한 게시물까지완료, 읽혀지면됨
 
-		FreeBoardVO readvo = mapper.read(51L);
+		FreeBoardVO readvo = mapper.read(vo.getNo());
 		log.info(readvo);
 		assertNotNull(readvo);
 
 	}
-	/*
-	 * @Test public void testDelete() { BoardVO board = new BoardVO();
-	 * board.setTitle("새로 작성하는 제목"); board.setContent("새로 작성하는 내용");
-	 * board.setWriter("newbie");
-	 * 
-	 * mapper.insertSelectKey(board);
-	 * 
-	 * int before=mapper.getList().size();
-	 * 
-	 * int cnt = mapper.delete(board.getBno()); assertEquals(1, cnt); int after =
-	 * mapper.getList().size();
-	 * 
-	 * assertEquals(before-1, after); }
-	 * 
-	 * @Test public void testUpdate() { BoardVO board = new BoardVO();
-	 * board.setTitle("새로 작성하는 제목"); board.setContent("새로 작성하는 내용");
-	 * board.setWriter("newbie");
-	 * 
-	 * mapper.insertSelectKey(board);
-	 * 
-	 * board.setTitle("변경된 제목"); board.setContent("변경된 내용~!"); int cnt =
-	 * mapper.update(board);
-	 * 
-	 * assertEquals(1, cnt);
-	 * 
-	 * BoardVO updateVO = mapper.read(board.getBno()); assertEquals("변경된 제목",
-	 * updateVO.getTitle()); assertEquals("변경된 내용~!", updateVO.getContent());
-	 * 
-	 * }
-	 */
-	/*
-	 * 
-	 * @Test public void testPaging() { Criteria cri = new Criteria(1, 5);
-	 * List<BoardVO> list = mapper.getListWithPaging(cri);
-	 * 
-	 * assertEquals(5, list.size());
-	 * 
-	 * cri = new Criteria(1,10); list = mapper.getListWithPaging(cri);
-	 * 
-	 * assertEquals(10, list.size());
-	 * 
-	 * 
-	 * cri = new Criteria(2,5); //2페이지의 5개 list = mapper.getListWithPaging(cri);
-	 * 
-	 * list.forEach(board -> log.info("게시물 번호만 출력하도록: "+board.getBno())); }
-	 */
+
+	@Test
+	public void testDelete() {
+		FreeBoardVO vo = new FreeBoardVO();
+		vo.setTitle("제목");
+		vo.setContent("삭제test");
+		vo.setMember_no(1);
+
+		mapper.insertSelectKey(vo);
+
+		int before = mapper.getList().size();
+
+		int cnt = mapper.delete(vo.getNo());
+		assertEquals(1, cnt);
+		int after = mapper.getList().size();
+
+		assertEquals(before - 1, after);
+	}
+
+	@Test
+	public void testUpdate() {
+		FreeBoardVO vo = new FreeBoardVO();
+		vo.setTitle("updateeeee");
+		vo.setContent("새로 작성하는 내용updateeeee");
+		vo.setMember_no(1);
+
+		mapper.insertSelectKey(vo);
+
+		vo.setTitle("변경된 제목~~~");
+		vo.setContent("변경된 내용updateeeee~!");
+		int cnt = mapper.update(vo);
+
+		assertEquals(1, cnt);
+
+		FreeBoardVO updateVO = mapper.read(vo.getNo());
+		assertEquals("변경된 제목~~~", updateVO.getTitle());
+		assertEquals("변경된 내용updateeeee~!", updateVO.getContent());
+
+	}
+
+//	@Test
+//	public void testPaging() {
+//		Criteria cri = new Criteria(1, 5);
+//		List<FreeBoardVO> list = mapper.getListWithPaging(cri);
+//
+//		assertEquals(5, list.size());
+//
+//		cri = new Criteria(1, 10);
+//		list = mapper.getListWithPaging(cri);
+//
+//		assertEquals(10, list.size());
+//
+//		cri = new Criteria(2, 5); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
+//
+//		list.forEach(vo -> log.info("게시물 번호만 출력하도록: " + vo.getNo()));
+//	}
+
 }
