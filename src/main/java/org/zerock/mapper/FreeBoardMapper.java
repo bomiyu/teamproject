@@ -7,7 +7,7 @@ import org.zerock.domain.FreeBoardVO;
 
 public interface FreeBoardMapper {
 
-	public int getTotalCount(Criteria cri); // SELECT count(*) FROM FreeBoard
+//	public int getTotalCount(Criteria cri); // SELECT count(*) FROM FreeBoard
 
 	public List<FreeBoardVO> getList();
 

@@ -55,14 +55,14 @@ public class FreeBoardController {
 //		model.addAttribute("pageMaker", dto);
 //	}
 	
-//	@GetMapping("/register")
-//	public void register(@ModelAttribute("cri") Criteria cri) {
-//		
-//	}
-//	
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
-	public String register(FreeBoardVO vo, RedirectAttributes rttr) {
+	public String register(FreeBoardVO vo, Model model,RedirectAttributes rttr) {
 		
 		/*
 		BoardVO board = new BoardVO();

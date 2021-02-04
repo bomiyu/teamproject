@@ -45,10 +45,12 @@
 		no = #{no}
 	</update>
 
-<!-- 	<select id="getTotalCount" resultType="int">
+	<!-- <select id="getTotalCount" resultType="int">
 		SELECT count(*) FROM FreeBoard
 		<include refid="criteria"></include>
-	</select>
+	</select> -->
+	
+	<!-- 
 	<update id="updateCnt">
 		UPDATE FreeBoard SET cnt = cnt + #{amount} WHERE no = #{no}
 	</update> -->
