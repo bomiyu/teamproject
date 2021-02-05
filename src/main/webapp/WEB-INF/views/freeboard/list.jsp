@@ -87,7 +87,11 @@ h5 {
 
 	<div class="container-sm mt-5">
 		<div class="d-flex flex-row-reverse bd-highlight">
-			<div class="p-2 bd-highlight""><button  class="btn btn-outline-success " type="submit" class="btn btn-success">글쓰기</button>
+		
+		<a href='<c:url value='/freeboard/register'/>' role="button" class="btn btn-outline-success btn-success">글쓰기</a>
+
+<!-- 
+			<div class="p-2 bd-highlight""><button  class="btn btn-outline-success " type="submit" class="btn btn-success">글쓰기</button> -->
 			</div>
 		</div>
 		<div class="row">
