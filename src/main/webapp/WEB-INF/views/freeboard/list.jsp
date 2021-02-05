@@ -7,6 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- MOBILE최적화 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
@@ -65,8 +69,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${root }/resources/css/font.css">
 <title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- MOBILE최적화 -->
+
 
 
 <style>/* css */
@@ -86,13 +89,10 @@ h5 {
 	</div>
 
 	<div class="container-sm mt-5">
-		<div class="d-flex flex-row-reverse bd-highlight">
+		<div class="d-flex flex-row-reverse p-2 bd-highlight">
 		
-		<a href='<c:url value='/freeboard/register'/>' role="button" class="btn btn-outline-success btn-success">글쓰기</a>
-
-<!-- 
-			<div class="p-2 bd-highlight""><button  class="btn btn-outline-success " type="submit" class="btn btn-success">글쓰기</button> -->
-			</div>
+		<a href='<c:url value='/freeboard/register'/>' role="button" class="btn btn-outline-success">글쓰기</a>
+		
 		</div>
 		<div class="row">
 			<table class="table table-striped table-hover">
