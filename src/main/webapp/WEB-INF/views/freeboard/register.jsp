@@ -52,9 +52,13 @@ h5 {
 					<div class="form-group">
 						<div>작성자</div>
 						<div>
-							<c:set value="${vo.member_no}" var="mem"/>
-								<c:out value="${mem }" />
-							
+							<c:forEach items="${list}" var="vo">
+
+								<div>
+									<c:out value="${vo.member_no}" />
+								</div>
+
+							</c:forEach>
 						</div>
 
 					</div>
