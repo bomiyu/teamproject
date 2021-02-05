@@ -23,10 +23,10 @@
 			  <div class="form-group">
 			    <label for="category">분류</label>
 			    <select class="form-control" name="category" id="category">
-			      <c:if test="${category eq 'notice' }">
+			      <c:if test="${notice.category eq 'notice' }">
 			      	<c:set var="n" value="selected" />
 			      </c:if>
-			      <c:if test="${category eq 'event' }">
+			      <c:if test="${notice.category eq 'event' }">
 			      	<c:set var="e" value="selected" />
 			      </c:if>
 			      <option ${n } selected>공지</option>
@@ -35,15 +35,15 @@
 			  </div>
 			  <div class="form-group">
 			    <label for="title">제목</label>
-			    <input type="email" class="form-control" name="title" id="title" value="${title }">
+			    <input type="email" class="form-control" name="title" id="title" value="${notice.title }">
 			  </div>
 			  <div class="form-group">
 			    <label for="writer">작성자</label>
-			    <input type="email" class="form-control" name="writer" id="writer" value=${writer }>
+			    <input type="email" class="form-control" name="writer" id="writer" value=${user.name }>
 			  </div>
 			  <div class="form-group">
 			    <label for="content">내용</label>
-			    <textarea class="form-control" name="content" id="content" rows="10">${content }</textarea>
+			    <textarea class="form-control" name="content" id="content" rows="10">${notice.content }</textarea>
 			  </div>
 			  <input type="submit" class="btn btn-success form-control" value="등록">
 			</form>	

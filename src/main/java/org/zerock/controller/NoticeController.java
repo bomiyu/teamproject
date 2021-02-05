@@ -2,12 +2,16 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.MemberVO;
 import org.zerock.domain.NoticeVO;
 import org.zerock.service.NoticeService;
 
@@ -21,8 +25,16 @@ public class NoticeController {
 	private NoticeService service;
 	
 	@GetMapping("/register")
-	public void register() {
+	@RequestMapping("/register")
+	public void register(HttpServletRequest req) {
 		// /notice/register.jsp
+		
+		MemberVO member = new MemberVO();
+		member.setNo(1);
+		member.setName("hong");
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("user", member);
 	}
 	
 	@PostMapping("/register")
