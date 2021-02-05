@@ -37,11 +37,14 @@ public class FreeBoardController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@GetMapping("/list") 
+	
 	public void list(Model model) {
 		log.info("******************** list *******************");
 		List<FreeBoardVO> list = service.getList();
 		model.addAttribute("list", list);
 	}
+	
+	
 	
 	
 //	@GetMapping("/list")
@@ -80,7 +83,7 @@ public class FreeBoardController {
 //		return "board/list";
 		return "redirect:/freeboard/list";
 	}
-
+	
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("no") Long no, Model model) {
 		/** 예전 코드 (스프링 없이) 
@@ -97,7 +100,7 @@ public class FreeBoardController {
 		log.info("get method - no: " + no);
 //		log.info(cri);
 		FreeBoardVO vo = service.get(no);
-		model.addAttribute("vo", vo);
+		model.addAttribute("freeboard", vo);
 //		model.addAttribute("cri", cri);
 	}
 

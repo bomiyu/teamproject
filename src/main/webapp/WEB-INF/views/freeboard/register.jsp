@@ -54,7 +54,7 @@ h5 {
       <%--     <input type="text" class="form-control" name="writer" id="writer" value=${user.name }>  --%>
            </div>
 
-					<button type="submit" class="btn btn-success">Submit</button>
+					<button type="submit" class="btn btn-outline-success">글쓰기</button>
 				</form>
 			</div>
 		</div>

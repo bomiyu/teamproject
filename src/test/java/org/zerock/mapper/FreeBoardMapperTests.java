@@ -104,7 +104,7 @@ public class FreeBoardMapperTests {
 
 		mapper.insertSelectKey(vo);// 새로등록한 게시물까지완료, 읽혀지면됨
 
-		FreeBoardVO readvo = mapper.read(vo.getNo());
+		FreeBoardVO readvo = mapper.get(vo.getNo());
 		log.info(readvo);
 		assertNotNull(readvo);
 
@@ -143,7 +143,7 @@ public class FreeBoardMapperTests {
 
 		assertEquals(1, cnt);
 
-		FreeBoardVO updateVO = mapper.read(vo.getNo());
+		FreeBoardVO updateVO = mapper.get(vo.getNo());
 		assertEquals("변경된 제목~~~", updateVO.getTitle());
 		assertEquals("변경된 내용updateeeee~!", updateVO.getContent());
 

@@ -16,11 +16,11 @@ public interface FreeBoardService {
 	public List<FreeBoardVO> getList();
 //	public List<FreeBoardVO> getList(Criteria cri);
 
-	public FreeBoardVO get(Long vo);
+	public FreeBoardVO get(Long no);
 
 	public boolean remove(Long no);
 
-	public boolean modify(FreeBoardVO board);
+	public boolean modify(FreeBoardVO vo);
 //	
 //	public int getTotal(Criteria cri);
 

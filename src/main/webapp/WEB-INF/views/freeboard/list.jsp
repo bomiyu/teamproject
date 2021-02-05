@@ -107,7 +107,7 @@ h5 {
 					<c:forEach items="${list}" var="vo">
 						<tr>
 							<td>${vo.no}</td>
-							<td><a href='/freeboard/get?no=<c:out value="${vo.no }"/>'>
+							<td><a href='<c:out value="get?no=${vo.no }"/>'>
 									<%--<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
 									<c:param value="${pageMaker.cri.amount }" name="amount" />
 									<c:param value="${pageMaker.cri.type }" name="type" />

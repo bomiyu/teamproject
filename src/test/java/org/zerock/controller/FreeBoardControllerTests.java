@@ -132,7 +132,7 @@ public class FreeBoardControllerTests {
 		
 		FlashMap map = result.getFlashMap();
 		String viewName = result.getModelAndView().getViewName();
-		FreeBoardVO mod = mapper.read(key);
+		FreeBoardVO mod = mapper.get(key);
 	
 		
 		assertEquals("kk수정된 게시물111", mod.getTitle());

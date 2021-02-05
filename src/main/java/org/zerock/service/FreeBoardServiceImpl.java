@@ -39,7 +39,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	@Override
 	public FreeBoardVO get(Long no) {
-		return mapper.read(no);
+		return mapper.get(no);
 	}
 	
 	@Override

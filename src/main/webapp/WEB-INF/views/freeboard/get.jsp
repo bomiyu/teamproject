@@ -16,7 +16,13 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+var appRoot = '${root}';
+var no = ${FreeBoard.no};
+</script>
+<script>
 
+</script>
 <title>Insert title here</title>
 
 <style>/* css */
@@ -41,30 +47,34 @@ h5 {
 
 					<div class="form-group">
 						<label>번호</label> <input name="no" type="text"
-							class="form-control" value='<c:out value="${vo.no }"/>'
+							class="form-control" value='<c:out value="${freeboard.no }"/>'
 							readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label for="input1">제목</label> <input name="title" type="text"
-							class="form-control" value='<c:out value="${vo.title }"/>' readonly="readonly">
+							class="form-control" value='<c:out value="${freeboard.title }"/>' readonly="readonly">
 					</div>
 
 					<div class="form-group">
 						<label for="textarea1">내용</label>
 						<textarea name="content" class="form-control" rows="3" 
-							readonly="readonly"><c:out value="${vo.content }"/></textarea>
+							readonly="readonly"><c:out value="${freeboard.content }"/></textarea>
 					</div>
 
 					<div class="form-group">
 						<label for="writer">작성자</label>
 						<%--     <input type="text" class="form-control" name="writer" id="writer" value=${user.name } readonly="readonly">  --%>
 					</div>
-					<a href='<c:url value='/freeboard/modify'/>' role="button"
-						class="btn btn-outline-success">수정</a>
-						<a href='<c:url value='/freeboard/list'/>' role="button"
-					class="btn btn-outline-success">목록보기</a>
-					<a href='<c:url value='/freeboard/delete'/>' role="button"
-					class="btn btn-outline-success">삭제</a>
+						<c:url value="/freeboard/modify" var="modifyLink">
+						<c:param name="no" value="${freeboard.no }"></c:param>
+						<%-- <c:param name="pageNum" value="${cri.pageNum }"></c:param>
+						<c:param name="amount" value="${cri.amount }"></c:param>
+						<c:param name="type" value="${cri.type }" ></c:param>
+						<c:param name="keyword" value="${cri.keyword }" ></c:param> --%>
+					</c:url>
+					<a href="${modifyLink }" class="btn btn-outline-success">
+						수정
+					</a>
 					</form>
 			</div>
 

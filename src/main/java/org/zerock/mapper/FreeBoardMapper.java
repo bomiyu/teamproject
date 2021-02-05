@@ -13,7 +13,7 @@ public interface FreeBoardMapper {
 
 	public void insertSelectKey(FreeBoardVO vo);
 
-	public FreeBoardVO read(Long no);
+	public FreeBoardVO get(Long no);
 
 	public int delete(Long no);
 

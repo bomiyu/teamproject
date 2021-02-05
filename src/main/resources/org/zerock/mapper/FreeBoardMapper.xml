@@ -27,7 +27,7 @@
 		#{title}, #{content}, #{member_no} )
 
 	</insert>
-	<select id="read" resultType="org.zerock.domain.FreeBoardVO">
+	<select id="get" resultType="org.zerock.domain.FreeBoardVO">
 		select * from FreeBoard where no =
 		#{no}
 	</select>
