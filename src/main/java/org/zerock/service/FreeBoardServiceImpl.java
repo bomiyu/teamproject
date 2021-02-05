@@ -2,9 +2,13 @@ package org.zerock.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.zerock.domain.FreeBoardVO;
 import org.zerock.domain.MemberVO;
 import org.zerock.mapper.FreeBoardMapper;
@@ -19,19 +23,9 @@ import lombok.extern.log4j.Log4j;
 public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	private FreeBoardMapper mapper;
-	
 	@Override
 	public void register(FreeBoardVO vo) {
 		mapper.insertSelectKey(vo);
-		
-	}
-	@Override
-	public void register(MemberVO mvo,HttpSession session){
-		mvo.setNo(1L);
-		mvo.setName("userbom00");
-		
-		
-		((HttpSession) session).setAttribute("member1",mvo);
 	}
 	
 	

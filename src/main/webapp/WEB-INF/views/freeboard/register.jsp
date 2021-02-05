@@ -49,16 +49,10 @@ h5 {
 							rows="3"></textarea>
 					</div>
 
-					<div class="form-group">
-						<div>작성자</div>
-						<div>
-							<%
-								String member1 = (String) session.getAttribute("member1");
-							%>
-
-						</div>
-
-					</div>
+				            <div class="form-group">
+             <label for="writer">작성자</label>
+      <%--     <input type="text" class="form-control" name="writer" id="writer" value=${user.name }>  --%>
+           </div>
 
 					<button type="submit" class="btn btn-success">Submit</button>
 				</form>

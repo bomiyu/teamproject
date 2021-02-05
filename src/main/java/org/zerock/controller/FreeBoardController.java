@@ -2,6 +2,9 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.FreeBoardVO;
+import org.zerock.domain.MemberVO;
 import org.zerock.service.FreeBoardService;
 
 import lombok.AllArgsConstructor;
@@ -33,9 +37,6 @@ public class FreeBoardController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@GetMapping("/list") 
-	// handler 메소드의 return type이 void인 경우
-	//   요청경로가 view(jsp)의 이름이 됨 
-	//   이 메소드는 (/board/list) -> /board/list.jsp
 	public void list(Model model) {
 		log.info("******************** list *******************");
 		List<FreeBoardVO> list = service.getList();
@@ -54,27 +55,22 @@ public class FreeBoardController {
 //		model.addAttribute("list", list);
 //		model.addAttribute("pageMaker", dto);
 //	}
-	
 	@GetMapping("/register")
-	public void register() {
-//		log.info(vo);
-//		log.info(vo.getMember_no());  
-		
-//		FreeBoardVO getmem = service.get((long) vo.getMember_no());
-//		model.addAttribute("mem", getmem); 
-	}
-
+	   @RequestMapping("/register")
+	   public void register(HttpServletRequest req) {
+	      // /freeboard/register.jsp에 session 얻어와서 user라는이름으로 memberVO객체를 SET해줌
+	      
+	      MemberVO member = new MemberVO();
+	      member.setNo(1);
+	      member.setName("hong");
+	      
+	      HttpSession session = req.getSession();
+	      session.setAttribute("user", member);
+	   }
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
 	public String register(FreeBoardVO vo, Model model,RedirectAttributes rttr) {
-		
-		/*
-		BoardVO board = new BoardVO();
-		board.setTitle(request.getParameter("title"));
-		board.setContent(request.getParameter("content"));
-		board.setWriter(request.getParameter("writer"));
-		*/
-		
 
 		service.register(vo);
 		
