@@ -32,7 +32,7 @@
 				//checkModal(result);
 				checkModal2(message);
 
-				history.replaceState({}, null, null); 
+				history.replaceState({}, null, null);
 
 				function checkModal2(message) {
 					if (message && history.state == null) {
@@ -53,16 +53,16 @@
 					$("#myModal").modal("show");
 				}
 
-		/* 		var actionForm = $("#actionForm");
-				$(".pagination a").click(
-						function(e) {
-							e.preventDefault();
+				/* 		var actionForm = $("#actionForm");
+						$(".pagination a").click(
+								function(e) {
+									e.preventDefault();
 
-							actionForm.find("[name='pageNum']").val(
-									$(this).attr('href'));
+									actionForm.find("[name='pageNum']").val(
+											$(this).attr('href'));
 
-							actionForm.submit();
-						}); */
+									actionForm.submit();
+								}); */
 			});
 </script>
 
@@ -77,8 +77,6 @@ h5 {
 	text-align: center;
 	text-size: 60pt;
 }
-
-
 </style>
 </head>
 <body>
@@ -90,9 +88,10 @@ h5 {
 
 	<div class="container-sm mt-5">
 		<div class="d-flex flex-row-reverse p-2 bd-highlight">
-		
-		<a href='<c:url value='/freeboard/register'/>' role="button" class="btn btn-outline-success">글쓰기</a>
-		
+
+			<a href='<c:url value='/freeboard/register'/>' role="button"
+				class="btn btn-outline-success">글쓰기</a>
+
 		</div>
 		<div class="row">
 			<table class="table table-striped table-hover">
@@ -108,14 +107,12 @@ h5 {
 					<c:forEach items="${list}" var="vo">
 						<tr>
 							<td>${vo.no}</td>
-							<td><c:url value="/FreeBoard/get" var="boardLink">
-									<c:param value="${vo.no }" name="no" />
-									<%-- 									<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
+							<td><a href='/freeboard/get?no=<c:out value="${vo.no }"/>'>
+									<%--<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
 									<c:param value="${pageMaker.cri.amount }" name="amount" />
 									<c:param value="${pageMaker.cri.type }" name="type" />
 									<c:param value="${pageMaker.cri.keyword }" name="keyword" /> --%>
-								</c:url> <a href="${boardLink }"> <c:out value="${vo.title}" />
-
+									<c:out value="${vo.title}" />
 							</a></td>
 							<td><c:out value="${vo.member_no}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"

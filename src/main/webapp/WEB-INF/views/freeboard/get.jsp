@@ -40,19 +40,19 @@ h5 {
 
 
 					<div class="form-group">
-						<label>bno</label> <input name="no" type="text"
-							class="form-control" value='<c:out value="vo.no"/>'
+						<label>번호</label> <input name="no" type="text"
+							class="form-control" value='<c:out value="${vo.no }"/>'
 							readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label for="input1">제목</label> <input name="title" type="text"
-							class="form-control" readonly="readonly">
+							class="form-control" value='<c:out value="${vo.title }"/>' readonly="readonly">
 					</div>
 
 					<div class="form-group">
 						<label for="textarea1">내용</label>
-						<textarea name="content" class="form-control" rows="3"
-							readonly="readonly"></textarea>
+						<textarea name="content" class="form-control" rows="3" 
+							readonly="readonly"><c:out value="${vo.content }"/></textarea>
 					</div>
 
 					<div class="form-group">
