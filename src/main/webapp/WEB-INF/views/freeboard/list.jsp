@@ -28,7 +28,7 @@
 				//checkModal(result);
 				checkModal2(message);
 
-				history.replaceState({}, null, null);
+				history.replaceState({}, null, null); 
 
 				function checkModal2(message) {
 					if (message && history.state == null) {
@@ -49,7 +49,7 @@
 					$("#myModal").modal("show");
 				}
 
-				var actionForm = $("#actionForm");
+		/* 		var actionForm = $("#actionForm");
 				$(".pagination a").click(
 						function(e) {
 							e.preventDefault();
@@ -58,7 +58,7 @@
 									$(this).attr('href'));
 
 							actionForm.submit();
-						});
+						}); */
 			});
 </script>
 
@@ -69,20 +69,27 @@
 <!-- MOBILE최적화 -->
 
 
- <style>/* css */
-          h5{
-            text-align: center;
-            text-size: 60pt;
-          }  
-    </style>
+<style>/* css */
+h5 {
+	text-align: center;
+	text-size: 60pt;
+}
+
+
+</style>
 </head>
 <body>
 
 
 	<div class="container mt-5 ">
-		<h5 >자유게시판</h5>
+		<h5>자유게시판</h5>
 	</div>
+
 	<div class="container-sm mt-5">
+		<div class="d-flex flex-row-reverse bd-highlight">
+			<div class="p-2 bd-highlight""><button  class="btn btn-outline-success " type="submit" class="btn btn-success">글쓰기</button>
+			</div>
+		</div>
 		<div class="row">
 			<table class="table table-striped table-hover">
 				<thead>
@@ -99,7 +106,7 @@
 							<td>${vo.no}</td>
 							<td><c:url value="/FreeBoard/get" var="boardLink">
 									<c:param value="${vo.no }" name="no" />
-<%-- 									<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
+									<%-- 									<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
 									<c:param value="${pageMaker.cri.amount }" name="amount" />
 									<c:param value="${pageMaker.cri.type }" name="type" />
 									<c:param value="${pageMaker.cri.keyword }" name="keyword" /> --%>
@@ -115,10 +122,10 @@
 				</tbody>
 			</table>
 		</div>
-		</div>
+	</div>
 	</div>
 
-<%-- 	<div id="myModal" class="modal" tabindex="-1">
+	<div id="myModal" class="modal" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -132,12 +139,11 @@
 					<p>처리가 완료되었습니다.</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-	</div>
-
+		</div>
+		<%-- 
 	<div class="container-sm mt-3">
 		<div class="row justify-content-center">
 			<nav aria-label="Page navigation example">
@@ -196,6 +202,5 @@
 				value="${pageMaker.cri.keyword }" /> <input type="submit" />
 		</form>
 	</div> --%>
-
 </body>
 </html>

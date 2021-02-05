@@ -36,7 +36,7 @@ h5 {
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
 
-				<form method="post"<%-- action="${pageContext.request.contextPath }/board/register" --%>
+				<form method="post"<%-- action="${pageContext.request.contextPath }/freeboard/register" --%>
 		>
 					<div class="form-group">
 						<label for="input1">제목</label> <input name="title" type="text"
