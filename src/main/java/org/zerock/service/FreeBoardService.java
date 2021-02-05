@@ -2,13 +2,16 @@ package org.zerock.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.zerock.domain.Criteria;
 import org.zerock.domain.FreeBoardVO;
+import org.zerock.domain.MemberVO;
 
 public interface FreeBoardService {
 
 	public void register(FreeBoardVO vo);
-
+	public void register(MemberVO mvo,HttpSession session);
 	public List<FreeBoardVO> getList();
 //	public List<FreeBoardVO> getList(Criteria cri);
 

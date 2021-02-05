@@ -2,9 +2,11 @@ package org.zerock.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
-import org.zerock.domain.Criteria;
 import org.zerock.domain.FreeBoardVO;
+import org.zerock.domain.MemberVO;
 import org.zerock.mapper.FreeBoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -18,10 +20,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	private FreeBoardMapper mapper;
 	
-	
 	@Override
 	public void register(FreeBoardVO vo) {
 		mapper.insertSelectKey(vo);
+		
+	}
+	@Override
+	public void register(MemberVO mvo,HttpSession session){
+		mvo.setNo(1L);
+		mvo.setName("userbom00");
+		
+		
+		((HttpSession) session).setAttribute("member1",mvo);
 	}
 	
 	
@@ -47,6 +57,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public boolean modify(FreeBoardVO vo) {
 		return mapper.update(vo) == 1;
 	}
+
+
+
 	
 //	@Override
 //	public int getTotal(Criteria cri) {

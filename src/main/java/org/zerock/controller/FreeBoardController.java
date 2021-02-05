@@ -57,9 +57,13 @@ public class FreeBoardController {
 	
 	@GetMapping("/register")
 	public void register() {
+//		log.info(vo);
+//		log.info(vo.getMember_no());  
 		
+//		FreeBoardVO getmem = service.get((long) vo.getMember_no());
+//		model.addAttribute("mem", getmem); 
 	}
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
 	public String register(FreeBoardVO vo, Model model,RedirectAttributes rttr) {
@@ -71,6 +75,7 @@ public class FreeBoardController {
 		board.setWriter(request.getParameter("writer"));
 		*/
 		
+
 		service.register(vo);
 		
 		rttr.addFlashAttribute("result", vo.getNo());

@@ -52,13 +52,10 @@ h5 {
 					<div class="form-group">
 						<div>작성자</div>
 						<div>
-							<c:forEach items="${list}" var="vo">
+							<%
+								String member1 = (String) session.getAttribute("member1");
+							%>
 
-								<div>
-									<c:out value="${vo.member_no}" />
-								</div>
-
-							</c:forEach>
 						</div>
 
 					</div>

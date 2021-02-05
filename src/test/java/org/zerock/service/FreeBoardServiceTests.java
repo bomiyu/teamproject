@@ -1,19 +1,20 @@
 package org.zerock.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.Criteria;
 import org.zerock.domain.FreeBoardVO;
+import org.zerock.domain.MemberVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -35,7 +36,7 @@ public class FreeBoardServiceTests {
 	}
 	
 	@Test
-	public void testRegister() {
+	public void testRegister() throws Exception {
 		FreeBoardVO vo = new FreeBoardVO();
 		vo.setTitle("updateeeee");
 		vo.setContent("새로 작성하는 내용updateeeee");
@@ -44,6 +45,13 @@ public class FreeBoardServiceTests {
 		int before = mapper.getList().size();
 		
 		service.register(vo);
+//
+//		MemberVO mvo = new MemberVO();
+//		mvo.setNo(1L);
+//		mvo.setName("userbom00");
+//		
+//		
+//		((HttpSession) session).setAttribute("member1",mvo);
 		
 		int after = mapper.getList().size();
 		
