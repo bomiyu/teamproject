@@ -25,49 +25,6 @@ public class FreeBoardMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardMapper mapper;
 
-	/*
-	 * @Test public void testSearch1() { Criteria cri = new Criteria();
-	 * cri.setType("T"); cri.setKeyword("테스트");
-	 * 
-	 * mapper.getListWithPaging(cri);
-	 * 
-	 * }
-	 * 
-	 * @Test public void testSearch2() { Criteria cri = new Criteria();
-	 * cri.setType("W"); cri.setKeyword("테스트");
-	 * 
-	 * mapper.getListWithPaging(cri);
-	 * 
-	 * }
-	 * 
-	 * @Test public void testSearch3() { Criteria cri = new Criteria();
-	 * cri.setType("C"); cri.setKeyword("테스트");
-	 * 
-	 * mapper.getListWithPaging(cri);
-	 * 
-	 * }
-	 * 
-	 * @Test public void testSearch4() { Criteria cri = new Criteria();
-	 * cri.setType("TC"); cri.setKeyword("테스트");
-	 * 
-	 * mapper.getListWithPaging(cri);
-	 * 
-	 * }
-	 * 
-	 * @Test public void testSearch5() { Criteria cri = new Criteria();
-	 * cri.setType("TWC"); cri.setKeyword("테스트");
-	 * 
-	 * mapper.getListWithPaging(cri);
-	 * 
-	 * }
-	 * 
-	 * @Test public void testSearch6() { Criteria cri = new Criteria();
-	 * cri.setType("TW"); cri.setKeyword("테스트");
-	 * 
-	 * mapper.getListWithPaging(cri);
-	 * 
-	 * }
-	 */
 	@Test
 	public void testGetList() {
 		List<FreeBoardVO> list = mapper.getList();
@@ -149,21 +106,22 @@ public class FreeBoardMapperTests {
 
 	}
 
-//	@Test
-//	public void testPaging() {
-//		Criteria cri = new Criteria(1, 5);
-//		List<FreeBoardVO> list = mapper.getListWithPaging(cri);
-//
-//		assertEquals(5, list.size());
-//
-//		cri = new Criteria(1, 10);
-//		list = mapper.getListWithPaging(cri);
-//
-//		assertEquals(10, list.size());
-//
-//		cri = new Criteria(2, 5); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
-//
-//		list.forEach(vo -> log.info("게시물 번호만 출력하도록: " + vo.getNo()));
-//	}
+	@Test
+	public void testPaging() {
+		Criteria cri = new Criteria(1, 5);
+		List<FreeBoardVO> list = mapper.getListWithPaging(cri);
+
+		assertEquals(10, list.size());
+
+		cri = new Criteria(1, 10);
+		list = mapper.getListWithPaging(cri);
+
+		assertEquals(10, list.size());
+		/*
+		 * cri = new Criteria(2, 5); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
+		 * 
+		 * list.forEach(vo -> log.info("게시물 번호만 출력하도록: " + vo.getNo()));
+		 */
+	}
 
 }

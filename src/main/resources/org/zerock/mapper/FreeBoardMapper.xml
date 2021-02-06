@@ -45,23 +45,36 @@
 		no = #{no}
 	</update>
 
-	<!-- <select id="getTotalCount" resultType="int">
-		SELECT count(*) FROM FreeBoard
-		<include refid="criteria"></include>
-	</select> -->
-	
-	<!-- 
-	<update id="updateCnt">
-		UPDATE FreeBoard SET cnt = cnt + #{amount} WHERE no = #{no}
-	</update> -->
+	<!-- <select id="getTotalCount" resultType="int"> SELECT count(*) FROM FreeBoard 
+		<include refid="criteria"></include> </select> -->
 
-	<!-- <select id="getListWithPaging" resultType="org.zerock.domain.FreeBoardVO"> 
-		<![CDATA[ SELECT no, title, content, regdate, cnt, member_no FROM ( SELECT 
-		ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, title, content, regdate, cnt, 
-		FROM FreeBoard ]]> <include refid="criteria"></include> <![CDATA[ ) WHERE 
-		rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount} ]]> 
-		</select> -->
-	<!-- -->
+	<!-- <update id="updateCnt"> UPDATE FreeBoard SET cnt = cnt + #{amount} 
+		WHERE no = #{no} </update> -->
+
+	<select id="getListWithPaging"
+		resultType="org.zerock.domain.FreeBoardVO"> 
+		<![CDATA[ 
+			select 
+			no, title, content,regdate,cnt, member_no
+			from
+				(
+				select /*+INDEX_DESC(Freeboard pk_freeboardno)*/
+					rownum rn, no, title, content,regdate,cnt, member_no
+				from
+					freeboard
+					where rownum <=20
+				) 
+				where rn >10
+			
+		]]> 
+		<!--
+ <![CDATA[ SELECT no, title, content, regdate, cnt, member_no FROM 
+			( SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, title, content, regdate, 
+			cnt,member_no FROM FreeBoard ]]> <include refid="criteria"></include>  <![CDATA[ 
+			) WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount} 
+			]]> -->
+	</select>
+
 </mapper>
 
 
