@@ -53,16 +53,16 @@
 					$("#myModal").modal("show");
 				}
 
-				/* 		var actionForm = $("#actionForm");
-						$(".pagination a").click(
-								function(e) {
-									e.preventDefault();
+				var actionForm = $("#actionForm");
+				$(".pagination a").click(
+						function(e) {
+							e.preventDefault();
 
-									actionForm.find("[name='pageNum']").val(
-											$(this).attr('href'));
+							actionForm.find("[name='pageNum']").val(
+									$(this).attr('href'));
 
-									actionForm.submit();
-								}); */
+							actionForm.submit();
+						});
 			});
 </script>
 
@@ -104,11 +104,12 @@ h5 {
 					</tr>
 				</thead>
 				<tbody>
+			
+
 					<c:forEach items="${list}" var="vo">
 						<tr>
 							<td>${vo.no}</td>
-							<td><a href='<c:out value="get?no=${vo.no }"/>'>
-									<%--<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
+							<td><a href='<c:out value="get?no=${vo.no }"/>'> <%--<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
 									<c:param value="${pageMaker.cri.amount }" name="amount" />
 									<c:param value="${pageMaker.cri.type }" name="type" />
 									<c:param value="${pageMaker.cri.keyword }" name="keyword" /> --%>
@@ -120,11 +121,17 @@ h5 {
 
 						</tr>
 					</c:forEach>
+	
+
 				</tbody>
 			</table>
+
+
+
+
 		</div>
 	</div>
-	</div>
+
 
 	<div id="myModal" class="modal" tabindex="-1">
 		<div class="modal-dialog">
@@ -144,49 +151,51 @@ h5 {
 				</div>
 			</div>
 		</div>
-		<%-- 
+	</div>
+
+
 	<div class="container-sm mt-3">
 		<div class="row justify-content-center">
 			<nav aria-label="Page navigation example">
 				<ul class="pagination">
 
 					<c:if test="${pageMaker.prev }">
-						<c:url value="/board/list" var="prevLink">
+						<c:url value="/freeboard/list" var="prevLink">
 							<c:param value="${pageMaker.startPage -1 }" name="pageNum" />
 							<c:param value="${pageMaker.cri.amount }" name="amount" />
-							<c:param name="type" value="${pageMaker.cri.type }" />
-							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
+							<%-- <c:param name="type" value="${pageMaker.cri.type }"/>
+		    		<c:param name="keyword" value="${pageMaker.cri.keyword }"/> --%>
 						</c:url>
 						<li class="page-item">
-							<a class="page-link" href="${prevLink }">Previous</a> <a
+							<%-- <a class="page-link" href="${prevLink }">Previous</a> --%> <a
 							class="page-link" href="${pageMaker.startPage -1 }">Previous</a>
 						</li>
 					</c:if>
 
 					<c:forEach var="num" begin="${pageMaker.startPage }"
 						end="${pageMaker.endPage }">
-						<c:url value="/board/list" var="pageLink">
+						<c:url value="/freeboard/list" var="pageLink">
 							<c:param name="pageNum" value="${num }" />
 							<c:param name="amount" value="${pageMaker.cri.amount }" />
-							<c:param name="type" value="${pageMaker.cri.type }" />
-							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
+							<%-- 	<c:param name="type" value="${pageMaker.cri.type }"/>
+		    		<c:param name="keyword" value="${pageMaker.cri.keyword }"/> --%>
 						</c:url>
 						<li
 							class="page-item ${pageMaker.cri.pageNum eq num ? 'active' : '' }">
-							<a class="page-link" href="${pageLink }">${num }</a> <a
+							<%-- <a class="page-link" href="${pageLink }">${num }</a> --%> <a
 							class="page-link" href="${num }">${num }</a>
 						</li>
 					</c:forEach>
 
 					<c:if test="${pageMaker.next }">
-						<c:url value="/board/list" var="nextLink">
+						<c:url value="/freeboard/list" var="nextLink">
 							<c:param name="pageNum" value="${pageMaker.endPage +1 }" />
 							<c:param name="amount" value="${pageMaker.cri.amount }" />
-							<c:param name="type" value="${pageMaker.cri.type }" />
-							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
+							<%-- 		<c:param name="type" value="${pageMaker.cri.type }"/>
+		    		<c:param name="keyword" value="${pageMaker.cri.keyword }"/> --%>
 						</c:url>
 						<li class="page-item">
-							<a class="page-link" href="${nextLink }">Next</a> <a
+							<%-- <a class="page-link" href="${nextLink }">Next</a> --%> <a
 							class="page-link" href="${pageMaker.endPage +1 }">Next</a>
 						</li>
 					</c:if>
@@ -194,14 +203,14 @@ h5 {
 			</nav>
 		</div>
 	</div>
-
-	<div class="d-none">
-		<form id="actionForm" action="${root }/board/list">
-			<input name="pageNum" value="${pageMaker.cri.pageNum }" /> <input
-				name="amount" value="${pageMaker.cri.amount }" /> <input
+		<div class="d-none">
+			<form id="actionForm" action="${root }/freeboard/list">
+				<input name="pageNum" value="${pageMaker.cri.pageNum }" /> <input
+					name="amount" value="${pageMaker.cri.amount }" />
+			<%-- <input
 				name="type" value="${pageMaker.cri.type }" /> <input name="keyword"
-				value="${pageMaker.cri.keyword }" /> <input type="submit" />
+				value="${pageMaker.cri.keyword }" /> <input type="submit" /> --%>
 		</form>
-	</div> --%>
+		</div>
 </body>
 </html>

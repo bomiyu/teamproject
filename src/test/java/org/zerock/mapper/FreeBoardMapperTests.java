@@ -108,7 +108,7 @@ public class FreeBoardMapperTests {
 
 	@Test
 	public void testPaging() {
-		Criteria cri = new Criteria(1, 5);
+		Criteria cri = new Criteria(2, 10);
 		List<FreeBoardVO> list = mapper.getListWithPaging(cri);
 
 		assertEquals(10, list.size());
@@ -117,11 +117,11 @@ public class FreeBoardMapperTests {
 		list = mapper.getListWithPaging(cri);
 
 		assertEquals(10, list.size());
-		/*
-		 * cri = new Criteria(2, 5); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
-		 * 
-		 * list.forEach(vo -> log.info("게시물 번호만 출력하도록: " + vo.getNo()));
-		 */
+
+		cri = new Criteria(2, 10); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
+
+		list.forEach(vo -> log.info("게시물 번호만 출력하도록: " + vo.getNo()));
+
 	}
 
 }

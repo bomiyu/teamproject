@@ -6,15 +6,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.FreeBoardVO;
-import org.zerock.domain.MemberVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -60,9 +58,9 @@ public class FreeBoardServiceTests {
 	
 	@Test
 	public void testGetList() {
-		List<FreeBoardVO> list = service.getList();
-//		  Criteria cri = new Criteria(2, 10);
-//		  List<FreeBoardVO> list= service.getList(cri);
+//		List<FreeBoardVO> list = service.getList();
+		  Criteria cri = new Criteria(2, 10);
+		  List<FreeBoardVO> list= service.getList(cri);
 		  
 		  assertNotNull(list);
 //		  assertNotEquals(list.size(),0);

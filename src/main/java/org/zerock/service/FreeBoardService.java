@@ -14,14 +14,14 @@ public interface FreeBoardService {
 	public void register(FreeBoardVO vo);
 
 	public List<FreeBoardVO> getList();
-//	public List<FreeBoardVO> getList(Criteria cri);
+	public List<FreeBoardVO> getList(Criteria cri);//paging처리를 위한 code
 
 	public FreeBoardVO get(Long no);
 
 	public boolean remove(Long no);
 
 	public boolean modify(FreeBoardVO vo);
-//	
-//	public int getTotal(Criteria cri);
+	
+	public int getTotal(Criteria cri);
 
 }

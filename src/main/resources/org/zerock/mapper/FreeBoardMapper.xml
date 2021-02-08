@@ -45,8 +45,9 @@
 		no = #{no}
 	</update>
 
-	<!-- <select id="getTotalCount" resultType="int"> SELECT count(*) FROM FreeBoard 
-		<include refid="criteria"></include> </select> -->
+	<select id="getTotalCount" resultType="int"> SELECT count(*) FROM
+		FreeBoard
+	</select><!-- resultType을 int로반환 -->
 
 	<!-- <update id="updateCnt"> UPDATE FreeBoard SET cnt = cnt + #{amount} 
 		WHERE no = #{no} </update> -->
@@ -55,24 +56,21 @@
 		resultType="org.zerock.domain.FreeBoardVO"> 
 		<![CDATA[ 
 			select 
-			no, title, content,regdate,cnt, member_no
+			no, title, content, regdate, cnt, member_no
 			from
 				(
-				select /*+INDEX_DESC(Freeboard pk_freeboardno)*/
-					rownum rn, no, title, content,regdate,cnt, member_no
+				select /*+INDEX_ASC(Freeboard pk_freeboardno)*/
+					rownum rn, no, title, content, regdate, cnt, member_no
 				from
 					freeboard
-					where rownum <=20
+					where rownum <= #{pageNum} * #{amount}
 				) 
-				where rn >10
-			
-		]]> 
-		<!--
- <![CDATA[ SELECT no, title, content, regdate, cnt, member_no FROM 
-			( SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, title, content, regdate, 
-			cnt,member_no FROM FreeBoard ]]> <include refid="criteria"></include>  <![CDATA[ 
-			) WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount} 
-			]]> -->
+			WHERE rn > (#{pageNum} -1) * #{amount}
+
+		]]>
+
+
+
 	</select>
 
 </mapper>
