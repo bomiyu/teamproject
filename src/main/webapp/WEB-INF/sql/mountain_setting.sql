@@ -15,6 +15,10 @@ CREATE TABLE MEMBER (
   PRIMARY KEY (no)
 );
 
+ALTER TABLE member
+ADD manager NUMBER(1) DEFAULT 0 NOT NULL
+ADD CONSTRAINT member_manager_ck CHECK (manager IN (0, 1));
+
 -- -----------------------------------------------------
 -- Table `MOUNTAIN`
 -- -----------------------------------------------------
@@ -23,7 +27,7 @@ DROP TABLE MOUNTAIN;
 CREATE SEQUENCE seq_mountain;
 CREATE TABLE MOUNTAIN (
   no NUMBER,
-  mName VARCHAR2(45) NOT NULL,
+  mName VARCHAR2(45) NOT NULL UNIQUE,
   mLoc VARCHAR2(200) NOT NULL,
   height NUMBER DEFAULT 0 NOT NULL,
   status NUMBER(1) DEFAULT 0 NOT NULL,
@@ -49,6 +53,8 @@ CREATE TABLE FREEBOARD (
   member_no NUMBER NOT NULL,
   PRIMARY KEY (no)
 );
+
+CREATE INDEX pk_freeboard ON Freeboard(no);
 
 
 -- -----------------------------------------------------
@@ -113,7 +119,8 @@ CREATE SEQUENCE seq_freply;
 CREATE TABLE FREPLY (
   no NUMBER,
   reply VARCHAR2(500) NOT NULL,
-  regdate VARCHAR2(45) DEFAULT sysdate NULL,
+  replyer VARCHAR2(45) NOT NULL,
+  regdate DATE DEFAULT sysdate NOT NULL,
   board_no NUMBER NOT NULL,
   PRIMARY KEY (no)
 );
@@ -128,7 +135,8 @@ CREATE SEQUENCE seq_nreply;
 CREATE TABLE NREPLY (
   no NUMBER,
   reply VARCHAR2(500) NOT NULL,
-  regdate VARCHAR2(45) DEFAULT sysdate NULL,
+  replyer VARCHAR2(45) NOT NULL,
+  regdate DATE DEFAULT sysdate NOT NULL,
   notice_no NUMBER NOT NULL,
   PRIMARY KEY (no)
 );

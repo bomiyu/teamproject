@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+#replyForm {
+/* 	margin: 0; */
+/* 	padding: 0; */
+}
+
+#reply {
+	disaply: inline;
+	border: none;
+	border-radius: 0px;
+	border-bottom: 1px solid #ced4da;
+}
+
+#reply:focus {
+    border: none;
+    outline: none;
+    border-color: white;
+    border-bottom: 1px solid #ced4da;
+}
+
+#newReplyBtn {
+	width: 10%;
+}

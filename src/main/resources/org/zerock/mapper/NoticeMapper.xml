@@ -9,40 +9,57 @@
       WHERE no > 0
     ]]>
 	</select>
-	
+
 	<insert id="insertSelectKey">
-      <selectKey keyProperty="no" order="BEFORE" resultType="long">
-      	SELECT seq_notice.nextval FROM dual
-      </selectKey>
-   	  INSERT INTO notice (no, category, title, content, member_no)
-      VALUES (#{no}, #{category}, #{title}, #{content}, #{member_no})
-   </insert>
-   
-   <select id="read" resultType="org.zerock.domain.NoticeVO">
-      SELECT * FROM notice WHERE no = #{no}
-   </select>
-   
-   <update id="updateCnt">
-   	  UPDATE notice
-   	  SET cnt = cnt + 1
-   	  WHERE no = #{no}
-   </update>
-   
-   <update id="update">
-      UPDATE notice
-      SET category = #{category}, title = #{title}, content = #{content} 
-      WHERE no = #{no}
-   </update>
-   
-   <delete id="delete">
-      DELETE notice WHERE no = #{no}
-   </delete>
-   
-   <select id="getList" resultType="org.zerock.domain.NoticeVO">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			SELECT seq_notice.nextval FROM dual
+		</selectKey>
+		INSERT INTO notice (no, category, title, content, member_no)
+		VALUES
+		(#{no}, #{category}, #{title}, #{content}, #{member_no})
+	</insert>
+
+	<select id="read" resultType="org.zerock.domain.NoticeVO">
+		SELECT * FROM notice WHERE no =
+		#{no}
+	</select>
+
+	<update id="updateCnt">
+		UPDATE notice
+		SET cnt = cnt + 1
+		WHERE no = #{no}
+	</update>
+
+	<update id="update">
+		UPDATE notice
+		SET category = #{category}, title =
+		#{title}, content = #{content}
+		WHERE no = #{no}
+	</update>
+
+	<delete id="delete">
+		DELETE notice WHERE no = #{no}
+	</delete>
+
+	<select id="getList" resultType="org.zerock.domain.NoticeVO">
    <![CDATA[
    	  SELECT * FROM notice
    	  WHERE no > 0
    	  ORDER BY no DESC
    ]]>
-   </select>
+	</select>
+
+	<select id="getListWithPaging" resultType="org.zerock.domain.NoticeVO">
+   <![CDATA[
+   	  SELECT 
+   	  	  no, category, title, content, regdate, cnt, member_no
+	  FROM (
+		  SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn,
+			     no, category, title, content, regdate, cnt, member_no
+	  	  FROM notice
+	  )
+  	  WHERE 
+  	  	  rn BETWEEN (#{curPage} - 1) * #{amount} + 1  AND #{curPage} * #{amount}
+   ]]>
+	</select>
 </mapper>

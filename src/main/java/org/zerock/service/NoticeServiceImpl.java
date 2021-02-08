@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.NCriteria;
 import org.zerock.domain.NoticeVO;
 import org.zerock.mapper.NoticeMapper;
 
@@ -27,6 +29,14 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public NoticeVO get(Long no) {
+		mapper.updateCnt(no);
+		return mapper.read(no);
+	}
+	
+	@Override
+	@Transactional // 옆에 이상한 거 뜬당
+	public NoticeVO getWithCnt(Long no) {
+		mapper.updateCnt(no);
 		return mapper.read(no);
 	}
 	
@@ -43,6 +53,11 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public List<NoticeVO> getList() {
 		return mapper.getList();
+	}
+	
+	@Override
+	public List<NoticeVO> getList(NCriteria cri) {
+		return mapper.getListWithPaging(cri);
 	}
 	
 }

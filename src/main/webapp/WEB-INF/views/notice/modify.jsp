@@ -11,15 +11,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container-sm mt-5">
+<div class="container-sm m-5">
 	<div class="row">
 		<div class="col-md-6 offset-md-3">
-			<h3 class="text-center">새 공지/이벤트</h3>
+			<h3 class="text-center">공지/이벤트 수정</h3>
 			<br>
-			<form>
+			<form method="post">
+			  <div>
+			  	<fmt:formatDate var="regdate" value="${notice.regdate }" pattern="yyyy-MM-dd HH:mm" />
+			  	<span>No. ${notice.no }</span>
+			  	<span class="float-right">작성일시: ${regdate }</span>
+			  </div>
+			  <br>
 			  <div class="form-group">
 			    <label for="category">분류</label>
 			    <select class="form-control" name="category" id="category">
@@ -29,23 +36,23 @@
 			      <c:if test="${notice.category eq 'event' }">
 			      	<c:set var="e" value="selected" />
 			      </c:if>
-			      <option ${n } selected>공지</option>
-			      <option ${e }>이벤트</option>
+			      <option value="notice" ${n } selected>공지</option>
+			      <option value="event" ${e }>이벤트</option>
 			    </select>
 			  </div>
 			  <div class="form-group">
-			    <label for="title">제목</label>
-			    <input type="email" class="form-control" name="title" id="title" value="${notice.title }">
+			    <label for="writer">작성자</label>
+			    <input type="text" class="form-control" name="writer" id="writer" value="${user.name }" readonly>
 			  </div>
 			  <div class="form-group">
-			    <label for="writer">작성자</label>
-			    <input type="email" class="form-control" name="writer" id="writer" value=${user.name }>
+			    <label for="title">제목</label>
+			    <input type="text" class="form-control" name="title" id="title" value="${notice.title }">
 			  </div>
 			  <div class="form-group">
 			    <label for="content">내용</label>
 			    <textarea class="form-control" name="content" id="content" rows="10">${notice.content }</textarea>
 			  </div>
-			  <input type="submit" class="btn btn-success form-control" value="등록">
+			  <input type="submit" class="btn btn-success form-control" value="수정">
 			</form>	
 		</div>
 	</div>
