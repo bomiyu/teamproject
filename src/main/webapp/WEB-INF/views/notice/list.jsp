@@ -15,6 +15,7 @@
 <script>
 var root = '${root}';	
 var result = '${result }';
+var isManager = ('${authUser.manager}' == 1);
 </script>
 <script src="${root }/resources/js/notice_list.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
@@ -22,11 +23,20 @@ var result = '${result }';
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container-sm m-5">
+<div class="container-sm my-5">
 	<div class="row">
-		<div class="col-md-8 offset-md-2">
-			<h3 class="text-center">공지/이벤트 수정</h3>
+		<div class="col-12 col-md-8 offset-md-2">
+			<h3 class="text-center">공지/이벤트</h3>
 			<br>
+			
+			<%-- search --%>
+			<form class="form-inline my-2 float-right">
+		      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+		      <button class="btn btn-outline-success my-2" type="submit"><i class="fas fa-search"></i></button>
+		    </form>
+			<br>
+			
+			<%-- notice list --%>
 			<table class="table table-hover">
 			  <thead>
 			    <tr id="list-head">
@@ -34,10 +44,17 @@ var result = '${result }';
 			      <th scope="col">분류</th>
 			      <th scope="col">제목</th>
 			      <th scope="col">작성일</th>
-			      <th scope="col">조회수</th>
+			      <th scope="col"><i class="far fa-eye"></i></th>
 			    </tr>
 			  </thead>
 			  <tbody>
+			  	<c:if test="${empty list}">
+			  		<tr class="list-item">
+				      <th scope="row" colspan="5">
+				      	<span>게시물이 존재하지 않습니다.</span>
+				      </th>
+			  		</tr>
+			  	</c:if>
 				<c:forEach items="${list }" var="notice">
 					<fmt:formatDate var="regdate" value="${notice.regdate }" pattern="yyyy-MM-dd HH:mm" />
 					<c:choose>
@@ -53,8 +70,8 @@ var result = '${result }';
 				    </tr>
 				</c:forEach>
 			  </tbody>
-			</table>
-			<a href="${root }/notice/register" class="btn btn-success float-right">새 공지</a>		
+			</table>			
+			<a id="newNoticeBtn" href="${root }/notice/register" class="btn btn-success float-right">새 공지</a>					
 		</div>
 	</div>
 	

@@ -14,6 +14,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 var result = '${result }';
+var logined = ('${authUser}' != 0);// T, F
+var isManager = ('${authUser.manager}' == 1);
+
+// test
+var root = '${root}';
+var no = '${notice.no }';
 </script>
 <script src="${root }/resources/js/notice_get.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
@@ -21,9 +27,9 @@ var result = '${result }';
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container-sm m-5">
+<div class="container-sm my-5">
 	<div class="row">
-		<div class="col-md-6 offset-md-3">
+		<div class="col-12 col-md-6 offset-md-3">
 			<h3 class="text-center">공지/이벤트</h3> ${result }
 			<br>
 			<form id="deleteForm" action="${root }/notice/delete?no=${notice.no}" method="post">
@@ -59,7 +65,7 @@ var result = '${result }';
 			  </div>
 			  <div class="form-group">
 			    <label for="writer">작성자</label>
-			    <input type="text" class="form-control" name="writer" id="writer" value="${user.name }" readonly>
+			    <input type="text" class="form-control" name="writer" id="writer" value="${notice.nickname }" readonly>
 			  </div>
 			  <div class="form-group">
 			    <label for="title">제목</label>
@@ -71,7 +77,7 @@ var result = '${result }';
 			  </div>
 			  <button id="deleteBtn" class="btn btn-danger float-right">삭제</button>
 			</form>	
-			<a href="${root }/notice/modify?no=${notice.no }" class="btn btn-primary float-right mr-1">수정</a>
+			<a id="modifyBtn" href="${root }/notice/modify?no=${notice.no }" class="btn btn-primary float-right mr-1">수정</a>
 			<a href="${root }/notice/list" class="btn btn-success">목록</a>
 		</div>
 	</div>
@@ -82,7 +88,7 @@ var result = '${result }';
 		<div class="col-md-8 offset-md-2">
 			<form method="post" id="replyForm">
 			  <div class="d-flex justify-content-between align-items-center">
-				<label for="content">nickname</label>
+				<label for="content">${authUser.nickname }</label>
 				<input type="text" class="form-control mx-1" name="reply" id="reply">
 				<button class="btn btn-light float-right" id="newReplyBtn">등록</button>
 			  </div>

@@ -14,9 +14,8 @@
 
 #reply:focus {
     border: none;
-    outline: none;
-    border-color: white;
     border-bottom: 1px solid #ced4da;
+    box-shadow: none;
 }
 
 #newReplyBtn {

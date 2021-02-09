@@ -2,6 +2,11 @@ $(function(){
 
 	showModal(result);
 	
+	$('#newNoticeBtn').hide();
+	
+	if (isManager) {
+		$('#newNoticeBtn').show();
+	}
 	
 	$('.list-item').click(function(){
 		var no =$(this).find('.no').text();

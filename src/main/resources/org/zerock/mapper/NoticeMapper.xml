@@ -15,13 +15,11 @@
 			SELECT seq_notice.nextval FROM dual
 		</selectKey>
 		INSERT INTO notice (no, category, title, content, member_no)
-		VALUES
-		(#{no}, #{category}, #{title}, #{content}, #{member_no})
+		VALUES (#{no}, #{category}, #{title}, #{content}, #{member_no})
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.NoticeVO">
-		SELECT * FROM notice WHERE no =
-		#{no}
+		SELECT * FROM noticeInfo WHERE no = #{no}
 	</select>
 
 	<update id="updateCnt">
@@ -43,7 +41,7 @@
 
 	<select id="getList" resultType="org.zerock.domain.NoticeVO">
    <![CDATA[
-   	  SELECT * FROM notice
+   	  SELECT * FROM noticeInfo
    	  WHERE no > 0
    	  ORDER BY no DESC
    ]]>
@@ -52,11 +50,11 @@
 	<select id="getListWithPaging" resultType="org.zerock.domain.NoticeVO">
    <![CDATA[
    	  SELECT 
-   	  	  no, category, title, content, regdate, cnt, member_no
+   	  	  no, category, title, content, regdate, cnt, member_no, nickname
 	  FROM (
 		  SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn,
-			     no, category, title, content, regdate, cnt, member_no
-	  	  FROM notice
+			     no, category, title, content, regdate, cnt, member_no, nickname
+	  	  FROM noticeInfo
 	  )
   	  WHERE 
   	  	  rn BETWEEN (#{curPage} - 1) * #{amount} + 1  AND #{curPage} * #{amount}

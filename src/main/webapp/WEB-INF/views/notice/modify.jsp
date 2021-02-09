@@ -15,9 +15,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container-sm m-5">
+<div class="container-sm my-5">
 	<div class="row">
-		<div class="col-md-6 offset-md-3">
+		<div class="col-12 col-md-6 offset-md-3">
 			<h3 class="text-center">공지/이벤트 수정</h3>
 			<br>
 			<form method="post">
@@ -42,7 +42,7 @@
 			  </div>
 			  <div class="form-group">
 			    <label for="writer">작성자</label>
-			    <input type="text" class="form-control" name="writer" id="writer" value="${user.name }" readonly>
+			    <input type="text" class="form-control" value="${notice.nickname }" readonly>
 			  </div>
 			  <div class="form-group">
 			    <label for="title">제목</label>

@@ -13,5 +13,6 @@ public class NoticeVO {
 	private Date regdate;// default sysdate
 	private int cnt;// default 0
 	private long member_no;
+	private String nickname;// 추가 view: noticeInfo
 
 }

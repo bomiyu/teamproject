@@ -110,6 +110,12 @@ ALTER TABLE notice
 ADD category VHARCHAR2(45) DEFAULT 'notice' NOT NULL
 ADD CONSTRAINT notice_category_ck CHECK (category IN ('notice','event'));
 
+CREATE VIEW NoticeInfo 
+AS
+SELECT n.no, n.category, n.title, n.content, n.regdate, n.cnt, n.member_no, m.nickname
+FROM notice n, member m
+WHERE n.member_no = m.no;
+
 -- -----------------------------------------------------
 -- Table `FREPLY`
 -- -----------------------------------------------------

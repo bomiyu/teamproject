@@ -2,13 +2,21 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.MemberVO;
 import org.zerock.domain.NCriteria;
 import org.zerock.domain.NPageDTO;
 import org.zerock.domain.NoticeVO;
@@ -39,7 +47,17 @@ public class NoticeController {
 	*/
 	
 	@GetMapping("/register")
-	public void register() {
+	public String register(HttpSession session) {
+		// 로그인 체크
+		Object user = session.getAttribute("authUser");
+		if (user == null) {// 로그인 창으로, alert('관리자만 접근할 수 있습니다.')
+			return "redirect:/member/login";
+		} else if (((MemberVO) user).getManager() == 0) {
+			// alert('관리자만 접근할 수 있습니다.')
+			System.out.println("관리자만 접근할 수 있습니다.");// test
+			return "redirect:/notice/list";
+		}
+		return "/notice/register";// 경로 맞나
 		// /notice/register.jsp
 	}
 	
@@ -51,7 +69,7 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/get")
-	public void getWithCnt(Long no, Model model) {// 뒤로가기하면 조회수 안 늘어남!!!!!!!!!!1 111111
+	public void getWithCnt(Long no, Model model) {// 뒤로가기하면 조회수 안 늘어남!!!!!!!!!!1 111111 ajax 처리,,,? 엉?
 		NoticeVO notice = service.getWithCnt(no);
 		model.addAttribute("notice", notice);
 		// /notice/get.jsp
@@ -79,6 +97,18 @@ public class NoticeController {
 			rttr.addFlashAttribute("result", "delSuccess");
 		}
 		return "redirect:/notice/list";
+	}
+	
+	/* using ajax : delete */
+	@PostMapping(value = "/delete/{no}",
+				   produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> delete(@PathVariable Long no) {// 주소창에서 no 받아서 처리
+		System.out.println("시작");
+		if (service.delete(no)) {
+			System.out.println("왔음");
+			return new ResponseEntity<>("delSuccess", HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping("/list")
