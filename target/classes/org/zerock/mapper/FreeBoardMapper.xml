@@ -59,7 +59,7 @@
 			no, title, content, regdate, cnt, member_no
 			from
 				(
-				select /*+INDEX_ASC(Freeboard pk_freeboardno)*/
+				select /*+INDEX_ASC(Freeboard pk_freeboardno)*/ 
 					rownum rn, no, title, content, regdate, cnt, member_no
 				from
 					freeboard

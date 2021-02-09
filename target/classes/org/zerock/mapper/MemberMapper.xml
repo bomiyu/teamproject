@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="org.zerock.mapper.MemberMapper">
+	
+	<!--#회원 등록-->
+	<insert id="insertSelectKey" >
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			SELECT seq_member.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO member 
+		(no, id, email, password, name, nickname, loc)
+		VALUES (#{no}, #{id}, #{email}, #{password}, #{name}, #{nickname}, #{loc}) 
+	</insert>
+	
+	<!--#전체 회원 리스트  -->
+	<select id="getList" resultType="org.zerock.domain.MemberVO">
+		SELECT * FROM member
+	</select>
+	
+	<!--#회원 정보 읽기 - 아이디 -->
+	<select id="readMember" resultType="org.zerock.domain.MemberVO">
+		SELECT * FROM member WHERE id = #{id}
+	</select>
+	
+	<!--#회원 정보 읽기 - no -->
+	<select id="read" resultType="org.zerock.domain.MemberVO">
+		SELECT * FROM member WHERE no = #{no}
+	</select>
+	
+	<!--#회원 정보 수정 -->
+	<update id="update">
+		UPDATE member
+		SET 
+			email=#{email},
+			password=#{password},
+			nickname=#{nickname},
+			loc=#{loc}
+		WHERE no = #{no}
+	</update>
+	
+	<!--#회원 탈퇴(삭제) -->
+	<delete id="delete">
+		DELETE FROM member WHERE no = #{no}
+	</delete>
+	</mapper>

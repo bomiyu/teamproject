@@ -1,8 +1,5 @@
 package org.zerock.controller;
 
-
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.FCriteria;
+import org.zerock.domain.FPageDTO;
 import org.zerock.domain.FreeBoardVO;
-import org.zerock.domain.MemberVO;
-import org.zerock.domain.PageDTO;
 import org.zerock.service.FreeBoardService;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +27,6 @@ import lombok.extern.log4j.Log4j;
 public class FreeBoardController {
 
 	private FreeBoardService service;
-
 
 //	public BoardController(FreeBoardService service) {
 //		super();
@@ -48,41 +43,26 @@ public class FreeBoardController {
 //	}
 
 	@GetMapping("/list")
-	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
+	public void list(@ModelAttribute("cri") FCriteria cri, Model model) {
 		model.addAttribute("list", service.getList(cri));
 		int total = service.getTotal(cri);
-		model.addAttribute("pageMaker", new PageDTO(cri, total));//pageMaker라는 이름으로 PageDTO클래스에서 객체를 만들어 MODEL에 담음 
-//		
-//List<BoardVO> list = service.getList(cri);
-//		
-//		int total = service.getTotal(cri);
-//		
-//		PageDTO dto = new PageDTO(cri, total);
-//		
-//		model.addAttribute("list", list);
-//		model.addAttribute("pageMaker", dto);
-//		
+		model.addAttribute("pageMaker", new FPageDTO(cri, total));
+
 		
 		
-//		int total = service.getTotal(cri);
-
-//		PageDTO dto = new PageDTO(cri, total);
-
-//		model.addAttribute("pageMaker", dto);
 	}
+	
+
 
 	@GetMapping("/register")
 	@RequestMapping("/register")
-	public void register(HttpServletRequest req) {
-		// /freeboard/register.jsp에 session 얻어와서 user라는이름으로 memberVO객체를 SET해줌
+	public void register(FreeBoardVO vo,HttpSession session) {
+		// /freeboard/register.jsp에 session 얻어와서 member_no라는이름으로 memberVO객체를 SET해줌v-일단pass
+		
+		Object user = session.getAttribute("authUser");
 
-		MemberVO member = new MemberVO();
-		member.setNo(1);
-		member.setName("hong");
-
-		HttpSession session = req.getSession();
-		session.setAttribute("user", member);
 	}
+
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
@@ -93,46 +73,32 @@ public class FreeBoardController {
 		rttr.addFlashAttribute("result", vo.getNo());
 		rttr.addFlashAttribute("message", vo.getNo() + "번 글이 등록되었습니다.");
 
-//		return "board/list";
 		return "redirect:/freeboard/list";
 	}
 
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("no") Long no, Model model) {
-		/**
-		 * 예전 코드 (스프링 없이) String boardNum = request.getParameter("num"); int num =
-		 * Integer.parseInt(boardNum);
-		 * 
-		 * BoardVO vo = service.get((long) num);
-		 * 
-		 * request.setAttribute("board", vo);
-		 * 
-		 * request.getRequestDispatcher(".jsp").forward();
-		 */
-
+	public void get(@RequestParam("no") Long no, Model model,HttpServletRequest request) {
 		log.info("get method - no: " + no);
-//		log.info(cri);
 		FreeBoardVO vo = service.get(no);
 		model.addAttribute("freeboard", vo);
-//		model.addAttribute("cri", cri);
+				
+		FCriteria cri = new FCriteria();
+		model.addAttribute("cri", cri);
+		
+//
+//		String old_url = request.getHeader("referer");
+//		System.out.println(" get, 수정 ======> "+old_url);
 	}
 
 	@PostMapping("/modify")
-	public String modify(FreeBoardVO vo, RedirectAttributes rttr) {
-		/**
-		 * 스프링 없이 BoardVO board = new BoardVO();
-		 * board.setBno(request.getParameter("bno"));
-		 * board.setTitle(request.getParameter("title"));
-		 * board.setContent(request.getParameter("content"));
-		 */
-
+	public String modify(FreeBoardVO vo, FCriteria cri, RedirectAttributes rttr) {
 		if (service.modify(vo)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", vo.getNo() + "번 글이 수정되었습니다.");
 		}
-//		log.info(cri);
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
+
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 //		rttr.addAttribute("type", cri.getType());
 //		rttr.addAttribute("keyword", cri.getKeyword());
 
@@ -154,7 +120,5 @@ public class FreeBoardController {
 
 		return "redirect:/freeboard/list";
 	}
-	
-
 
 }

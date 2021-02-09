@@ -18,7 +18,27 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+ <script>
+$(document).ready(function() {
+/* 	$("#go").click(function(e) {
+		if($("#input1") || $("#textarea1")  == null){
+			e.preventDefault();
+			
+		} else{
+			$("#go").submit();
+		}
 
+	}); */
+
+    $("#go").click(function(e) {
+    	
+    	   e.preventDefault();// 바로 이벤트 버블링 막고
+    	      if($("#input1").val() != '' && $("#textarea1").val() != ''){
+    	         $("#newBoardForm").submit();
+    	      }
+    	   });
+});
+</script>
 <title>Insert title here</title>
 
 <style>/* css */
@@ -38,25 +58,25 @@ h5 {
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
 
-				<form method="post"<%-- action="${pageContext.request.contextPath }/freeboard/register" --%>
+				<form id="newBoardForm" method="post"<%-- action="${pageContext.request.contextPath }/freeboard/register" --%>
 		>
 					<div class="form-group">
 						<label for="input1">제목</label> <input name="title" type="text"
-							class="form-control" id="input1" placeholder="제목을 입력하세요.">
+							class="form-control" id="input1" placeholder="제목을 입력하세요." required>
 					</div>
 
 					<div class="form-group">
 						<label for="textarea1">내용</label>
 						<textarea name="content" class="form-control" id="textarea1"
-							rows="3"></textarea>
+							rows="3" placeholder="내용을 입력하세요." required></textarea>
 					</div>
 
 				            <div class="form-group">
              <label for="writer">작성자</label>
-      <%--     <input type="text" class="form-control" name="writer" id="writer" value=${user.name }>  --%>
+     <input type="text" class="form-control" name="writer" id="writer" readonly="readonly" value="${authUser.nickname}" required/> 
            </div>
 
-					<button type="submit" class="btn btn-outline-success">글쓰기</button>
+					<button id="go" type="submit" class="btn btn-outline-success">글쓰기</button>
 				</form>
 			</div>
 		</div>

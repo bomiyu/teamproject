@@ -19,11 +19,14 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script>
-var appRoot = '${root}';
-var no = ${FreeBoard.no};
+	var appRoot = '${root}';
+	var no = $
+	{
+		FreeBoard.no
+	};
 </script>
 <script>
-
+	
 </script>
 <title>Insert title here</title>
 
@@ -54,36 +57,50 @@ h5 {
 					</div>
 					<div class="form-group">
 						<label for="input1">제목</label> <input name="title" type="text"
-							class="form-control" value='<c:out value="${freeboard.title }"/>' readonly="readonly">
+							class="form-control" value='<c:out value="${freeboard.title }"/>'
+							readonly="readonly">
 					</div>
 
 					<div class="form-group">
 						<label for="textarea1">내용</label>
-						<textarea name="content" class="form-control" rows="3" 
-							readonly="readonly"><c:out value="${freeboard.content }"/></textarea>
+						<textarea name="content" class="form-control" rows="3"
+							readonly="readonly"><c:out
+								value="${freeboard.content }" /></textarea>
 					</div>
 
 					<div class="form-group">
 						<label for="writer">작성자</label>
 						<%--     <input type="text" class="form-control" name="writer" id="writer" value=${user.name } readonly="readonly">  --%>
 					</div>
-						<c:url value="/freeboard/modify" var="modifyLink">
+
+
+					<c:url value="/freeboard/modify" var="modifyLink">
 						<c:param name="no" value="${freeboard.no }"></c:param>
-						<%-- <c:param name="pageNum" value="${cri.pageNum }"></c:param>
+						<c:param name="pageNum" value="${cri.pageNum }"></c:param>
 						<c:param name="amount" value="${cri.amount }"></c:param>
-						<c:param name="type" value="${cri.type }" ></c:param>
-						<c:param name="keyword" value="${cri.keyword }" ></c:param> --%>
+						<%-- 		<c:param name="type" value="${cri.type }" ></c:param>
+						<c:param name="keyword" value="${cri.keyword }" ></c:param>  --%>
 					</c:url>
-					<a href="${modifyLink }" class="btn btn-outline-success">
-						수정
-					</a>
-					</form>
+					<a href="${modifyLink }" class="btn btn-outline-success"> 수정 </a>
+
+					<c:url value="/freeboard/list" var="listLink">
+						<c:param name="no" value="${freeboard.no }"></c:param>
+						<c:param name="pageNum" value="${cri.pageNum  }"></c:param>
+						<c:param name="amount" value="${cri.amount  }"></c:param>
+					</c:url>
+					<a href='${listLink }' class="btn btn-outline-success"> 목록보기 </a>
+
+				</form>
+
+
+
+
 			</div>
 
-			
+
 		</div>
 	</div>
-	</div>
+
 
 </body>
 </html>

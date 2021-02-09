@@ -92,8 +92,6 @@ h5 {
 						class="btn btn-outline-success">삭제</button>
 
 
-					<button type="button" class="btn btn-outline-success"
-						onClick="window.open('${root}/freeboard/list')">목록보기</button>
 				</form>
 
 

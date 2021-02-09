@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.FCriteria;
 import org.zerock.domain.FreeBoardVO;
 
 import lombok.Setter;
@@ -108,17 +108,17 @@ public class FreeBoardMapperTests {
 
 	@Test
 	public void testPaging() {
-		Criteria cri = new Criteria(2, 10);
+		FCriteria cri = new FCriteria(2, 10);
 		List<FreeBoardVO> list = mapper.getListWithPaging(cri);
 
 		assertEquals(10, list.size());
 
-		cri = new Criteria(1, 10);
+		cri = new FCriteria(1, 10);
 		list = mapper.getListWithPaging(cri);
 
 		assertEquals(10, list.size());
 
-		cri = new Criteria(2, 10); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
+		cri = new FCriteria(2, 10); // 2페이지의 5개 list = mapper.getListWithPaging(cri);
 
 		list.forEach(vo -> log.info("게시물 번호만 출력하도록: " + vo.getNo()));
 

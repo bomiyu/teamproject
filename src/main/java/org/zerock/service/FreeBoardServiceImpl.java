@@ -3,7 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.FCriteria;
 import org.zerock.domain.FreeBoardVO;
 import org.zerock.mapper.FreeBoardMapper;
 
@@ -27,7 +27,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	
 
 	@Override
-	public List<FreeBoardVO> getList(Criteria cri) { //paging처리
+	public List<FreeBoardVO> getList(FCriteria cri) { //paging처리
 		return mapper.getListWithPaging(cri);
 	}
 	
@@ -50,7 +50,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	
 	@Override
-	public int getTotal(Criteria cri) {
+	public int getTotal(FCriteria cri) {
 		return mapper.getTotalCount(cri);
 	}
 }

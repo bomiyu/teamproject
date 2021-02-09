@@ -53,16 +53,24 @@
 					$("#myModal").modal("show");
 				}
 
-				var actionForm = $("#actionForm");
+				var actionForm = $("#actionForm"); //실제 페이지를 클릭하면 동작을 하는!
 				$(".pagination a").click(
 						function(e) {
-							e.preventDefault();
+							e.preventDefault(); //a태그 클릭해도 페이지 이동이없도록 
 
 							actionForm.find("[name='pageNum']").val(
 									$(this).attr('href'));
 
 							actionForm.submit();
 						});
+				/*
+				$(".move").on("click", function(e){
+					e.preventDefault();
+					actionForm.append("<input type='hidden' name='no' value='"+$(this).attr("href")+"'>");
+					actionForm.attr("action", "/freeboard/get");
+					actionForm.submit();
+				});
+				 */
 			});
 </script>
 
@@ -97,31 +105,36 @@ h5 {
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>#번호</th>
+						<th>#</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody>
-			
 
-					<c:forEach items="${list}" var="vo">
+
+					<c:forEach items="${list}" var="vo" varStatus="status">
 						<tr>
-							<td>${vo.no}</td>
-							<td><a href='<c:out value="get?no=${vo.no }"/>'> <%--<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
-									<c:param value="${pageMaker.cri.amount }" name="amount" />
-									<c:param value="${pageMaker.cri.type }" name="type" />
-									<c:param value="${pageMaker.cri.keyword }" name="keyword" /> --%>
-									<c:out value="${vo.title}" />
-							</a></td>
-							<td><c:out value="${vo.member_no}" /></td>
+							<td>${(pageMaker.cri.pageNum -1) * pageMaker.cri.amount + status.index + 1}
+							<c:url value="/freeboard/get" var="boardLink">
+								<c:param value="${vo.no  }" name="no" />
+		<%-- 						<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
+								<c:param value="${pageMaker.cri.amount }" name="amount" /> --%>
+								<%-- 				<c:param value="${pageMaker.cri.type }" name="type" />
+								<c:param value="${pageMaker.cri.keyword }" name="keyword" /> --%>
+							</c:url>
+
+							<td><a class='move' href='${boardLink }'> <c:out
+										value="${vo.title}" /></a></td>
+
+							<td><c:out value="${authUser.nickname }" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
 									value="${vo.regdate}" /></td>
 
 						</tr>
 					</c:forEach>
-	
+
 
 				</tbody>
 			</table>
@@ -203,7 +216,7 @@ h5 {
 			</nav>
 		</div>
 	</div>
-		<div class="d-none">
+	<div class="d-none">
 			<form id="actionForm" action="${root }/freeboard/list">
 				<input name="pageNum" value="${pageMaker.cri.pageNum }" /> <input
 					name="amount" value="${pageMaker.cri.amount }" />

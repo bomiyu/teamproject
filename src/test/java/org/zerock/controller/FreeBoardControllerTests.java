@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.FCriteria;
 import org.zerock.domain.FreeBoardVO;
 import org.zerock.mapper.FreeBoardMapper;
 
