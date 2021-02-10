@@ -18,13 +18,48 @@
 			</foreach>
 		</where>
 	</sql>
+	<!--20210210 작성자부분 <select id="getList" resultType="org.zerock.domain.FreeBoardVO"> 
+		<![CDATA[ select * from FreeBoard where no > 0 ]]> </select> -->
 
+	<!--20210210 작성자부분 + -->
 	<select id="getList" resultType="org.zerock.domain.FreeBoardVO">
+		SELECT f.no, f.title, f.content,
+		f.regdate, f.cnt, f.member_no,
+		f.user_nickname
+		FROM FreeBoard f
+		LEFT
+		OUTER JOIN Member m ON f.user_nickname=m.nickname
+	</select>
+	<select id="getListWithPaging"
+		resultType="org.zerock.domain.FreeBoardVO"> 
+		<![CDATA[ 
+			select 
+			no, title, content, regdate, cnt, member_no, user_nickname
+			from
+				(
+				select /*+INDEX_ASC(Freeboard pk_freeboardno)*/ 
+					rownum rn, no, title, content, regdate, cnt, member_no, user_nickname
+				from
+					FreeBoard
+					
+					]]>
+		<include refid="fcriteria"></include>
+			
 <![CDATA[
-		select * from FreeBoard where no > 0
+	 )
+	WHERE
+	 rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount}
 ]]>
 
 	</select>
+
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*)
+		FROM FreeBoard f
+		LEFT OUTER JOIN Member m ON f.user_nickname=m.nickname
+	</select><!-- resultType을 int로반환 -->
+
+
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="no" order="BEFORE" resultType="long">
 			select seq_freeboard.nextval FROM dual
@@ -57,33 +92,8 @@
 	<!-- <update id="updateCnt"> UPDATE FreeBoard SET cnt = cnt + #{amount} 
 		WHERE no = #{no} </update> -->
 
-	<select id="getListWithPaging"
-		resultType="org.zerock.domain.FreeBoardVO"> 
-		<![CDATA[ 
-			select 
-			no, title, content, regdate, cnt, member_no
-			from
-				(
-				select /*+INDEX_ASC(Freeboard pk_freeboardno)*/ 
-					rownum rn, no, title, content, regdate, cnt, member_no
-				from
-					FreeBoard
-					
-					]]>
-		<include refid="fcriteria"></include>
-			
-<![CDATA[
-	 )
-	WHERE
-	 rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount}
-]]>		
-	</select>
 
-	<select id="getTotalCount" resultType="int">
-		SELECT count(*) FROM
-		FreeBoard
-		<include refid="fcriteria"></include>
-	</select><!-- resultType을 int로반환 -->
+
 
 
 </mapper>

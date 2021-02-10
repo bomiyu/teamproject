@@ -1,6 +1,5 @@
 package org.zerock.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -59,23 +58,21 @@ public class FreeBoardController {
 
 	@GetMapping("/register")
 	@RequestMapping("/register")
-	public void register(FreeBoardVO vo,HttpSession session) {
-		// /freeboard/register.jsp에 session 얻어와서 member_no라는이름으로 memberVO객체를 SET해줌v-일단pass
-		
-		Object user = session.getAttribute("authUser");
-
+	public void register(FreeBoardVO vo) {
+	
 	}
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
-	public String register(FreeBoardVO vo, Model model, RedirectAttributes rttr) {
-
-		service.register(vo);
-
+	public String register(FreeBoardVO vo, Model model, RedirectAttributes rttr, HttpSession session) {
 		rttr.addFlashAttribute("result", vo.getNo());
 		rttr.addFlashAttribute("message", vo.getNo() + "번 글이 등록되었습니다.");
-
+ //Session에 저장된 nickname을 writer에저장 
+		String writer = (String) session.getAttribute("nickname");
+		vo.setWriter(writer);
+		service.register(vo);
+		
 		return "redirect:/freeboard/list";
 	}
 

@@ -182,7 +182,7 @@ h5 {
 	</div>
 
 
-
+<div class="row">
 	<div class="container-sm mt-3">
 		<div class="row justify-content-center">
 			<nav aria-label="Page navigation example">
@@ -228,7 +228,7 @@ h5 {
 		</div>
 	</div>
 
-
+</div>
 
 	<div class="d-none">
 		<form id="actionForm" action="${root }/freeboard/list">
