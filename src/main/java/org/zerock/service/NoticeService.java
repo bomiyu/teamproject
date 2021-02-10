@@ -15,6 +15,8 @@ public interface NoticeService {
 	
 	public NoticeVO getWithCnt(Long no);
 	
+	//public boolean modifyCnt(Long no);
+	
 	public boolean modify(NoticeVO notice);
 	
 	public boolean delete(Long no);

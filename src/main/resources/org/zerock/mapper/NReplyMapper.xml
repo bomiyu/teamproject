@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.NReplyMapper"> <!-- interface -->
+	<select id="getTotalCount" resultType="int">
+	<![CDATA[
+		SELECT count(*) FROM nreply
+		WHERE no > 0 
+	]]>
+	</select>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			SELECT seq_nreply.nextval FROM dual
+		</selectKey>
+		INSERT INTO nreply (no, reply, replyer, notice_no)
+		VALUES (#{no}, #{reply}, #{replyer}, #{notice_no})
+	</insert>
+	
+	<select id="read" resultType="org.zerock.domain.NReplyVO">
+		SELECT * FROM nreply WHERE no = #{no}
+	</select>
+	
+	<update id="update">
+		UPDATE nreply
+		SET reply = #{reply}, updatedate = sysdate
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="delete">
+		DELETE nreply WHERE no = #{no}
+	</delete>
+	
+	<select id="getList" resultType="org.zerock.domain.NReplyVO">
+	<![CDATA[
+		SELECT * FROM nreply
+		WHERE no > 0
+		ORDER BY no DESC
+	]]>
+	</select>
+</mapper>
+	

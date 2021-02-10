@@ -143,6 +143,7 @@ CREATE TABLE NREPLY (
   reply VARCHAR2(500) NOT NULL,
   replyer VARCHAR2(45) NOT NULL,
   regdate DATE DEFAULT sysdate NOT NULL,
+  updatedate DATE DEFAULT sysdate NOT NULL,
   notice_no NUMBER NOT NULL,
   PRIMARY KEY (no)
 );

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
@@ -31,7 +32,7 @@ public class NoticeController {
 
 	private NoticeService service;
 	
-	/*
+	/* session-member test
 	@GetMapping("/register")
 	@RequestMapping("/register")
 	public void register(HttpServletRequest req) {
@@ -69,19 +70,29 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/get")
-	public void getWithCnt(Long no, Model model) {// 뒤로가기하면 조회수 안 늘어남!!!!!!!!!!1 111111 ajax 처리,,,? 엉?
+	public void get(Long no, Model model) {
 		NoticeVO notice = service.getWithCnt(no);
 		model.addAttribute("notice", notice);
 		// /notice/get.jsp
 	}
 	
+	/* using ajax : update cnt */
+	/*@GetMapping("/cnt/{no}")
+	public ResponseEntity<String> modifyCnt(@PathVariable Long no){
+		if (service.modifyCnt(no)) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}*/
+	
 	@GetMapping("/modify")
-	public void get(Long no, Model model) {
+	public void modify(Long no, Model model) {
 		NoticeVO notice = service.get(no);
 		model.addAttribute("notice", notice);
 		// /notice/modify.jsp
 	}
 	
+	/*
 	@PostMapping("/modify")
 	public String modify(NoticeVO notice, RedirectAttributes rttr) {
 		if (service.modify(notice)) {
@@ -89,24 +100,34 @@ public class NoticeController {
 		}
 		rttr.addAttribute("no", notice.getNo());
 		return "redirect:/notice/get";// param -> no지정		
+	}*/
+	
+	/* using ajax : modify */
+	@PostMapping(value = "/modify",
+				 consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> modify(@RequestBody NoticeVO notice, HttpSession session){
+		if (service.modify(notice)) {
+			session.setAttribute("result", "modSuccess");
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	/*
 	@PostMapping("/delete")
 	public String delete(Long no, RedirectAttributes rttr) {
 		if (service.delete(no)) {
 			rttr.addFlashAttribute("result", "delSuccess");
 		}
 		return "redirect:/notice/list";
-	}
+	}*/
 	
 	/* using ajax : delete */
-	@PostMapping(value = "/delete/{no}",
-				   produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> delete(@PathVariable Long no) {// 주소창에서 no 받아서 처리
-		System.out.println("시작");
+	@DeleteMapping("/delete/{no}")
+	public ResponseEntity<String> delete(@PathVariable Long no, HttpSession session) {// 주소창에서 no 받아서 처리
 		if (service.delete(no)) {
-			System.out.println("왔음");
-			return new ResponseEntity<>("delSuccess", HttpStatus.OK);
+			session.setAttribute("result", "delSuccess");
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

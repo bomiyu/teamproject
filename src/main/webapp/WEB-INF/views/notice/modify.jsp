@@ -10,7 +10,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+var root = '${root}';
+var no = ${notice.no};// 수정했음
+//var notice = '${notice.json}';// 이걸 넘기면 안 되네.,.? 수정된 내용을 넘겨야 하는데
+</script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="${root }/resources/js/notice_modify.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <title>Insert title here</title>
 </head>
@@ -52,8 +58,9 @@
 			    <label for="content">내용</label>
 			    <textarea class="form-control" name="content" id="content" rows="10">${notice.content }</textarea>
 			  </div>
-			  <input type="submit" class="btn btn-success form-control" value="수정">
+			  <button id="modifyBtn" type="submit" class="btn btn-success float-right">수정</button>
 			</form>	
+		    <button id="cancelyBtn" class="btn btn-secondary  float-right mr-1">취소</button>
 		</div>
 	</div>
 </div>

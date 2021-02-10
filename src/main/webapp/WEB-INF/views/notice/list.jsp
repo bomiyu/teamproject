@@ -110,5 +110,7 @@ var isManager = ('${authUser.manager}' == 1);
 		</div>
 	</div>
 </div>
+<%-- session에서 delSuccess 삭제 --%>
+<c:remove var="result" />
 </body>
 </html>

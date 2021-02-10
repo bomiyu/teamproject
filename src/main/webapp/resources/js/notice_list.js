@@ -1,7 +1,12 @@
 $(function(){
-
-	showModal(result);
 	
+	if(performance.navigation.type == 2){
+	  // 2 indicates the page was accessed by navigating into the history
+ 	  location.reload(true);
+	}
+	
+	showModal(result);
+
 	$('#newNoticeBtn').hide();
 	
 	if (isManager) {
@@ -10,10 +15,11 @@ $(function(){
 	
 	$('.list-item').click(function(){
 		var no =$(this).find('.no').text();
+		
 		location.href = root + '/notice/get?no=' + no;
 	});
 	
-	
+
 	function showModal(result){
 		if(result == 'delSuccess') {
 			swal({
@@ -22,6 +28,7 @@ $(function(){
 			  icon: "success",
 			  button: "close",
 			});
+			
 		}
 	};
 });

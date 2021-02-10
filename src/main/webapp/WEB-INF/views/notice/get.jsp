@@ -17,7 +17,6 @@ var result = '${result }';
 var logined = ('${authUser}' != 0);// T, F
 var isManager = ('${authUser.manager}' == 1);
 
-// test
 var root = '${root}';
 var no = '${notice.no }';
 </script>
@@ -30,7 +29,7 @@ var no = '${notice.no }';
 <div class="container-sm my-5">
 	<div class="row">
 		<div class="col-12 col-md-6 offset-md-3">
-			<h3 class="text-center">공지/이벤트</h3> ${result }
+			<h3 class="text-center">공지/이벤트</h3>
 			<br>
 			<form id="deleteForm" action="${root }/notice/delete?no=${notice.no}" method="post">
 			<%--
@@ -77,7 +76,7 @@ var no = '${notice.no }';
 			  </div>
 			  <button id="deleteBtn" class="btn btn-danger float-right">삭제</button>
 			</form>	
-			<a id="modifyBtn" href="${root }/notice/modify?no=${notice.no }" class="btn btn-primary float-right mr-1">수정</a>
+			<a id="modifyBtn" class="btn btn-primary float-right mr-1">수정</a>
 			<a href="${root }/notice/list" class="btn btn-success">목록</a>
 		</div>
 	</div>
@@ -96,5 +95,7 @@ var no = '${notice.no }';
 		</div>
 	</div>
 </div>
+<%-- session에서 modSuccess 삭제 --%>
+<c:remove var="result" />
 </body>
 </html>

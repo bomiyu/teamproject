@@ -27,9 +27,9 @@ public class NoticeServiceImpl implements NoticeService {
 		mapper.insertSelectKey(notice);
 	}
 	
+	
 	@Override
 	public NoticeVO get(Long no) {
-		mapper.updateCnt(no);
 		return mapper.read(no);
 	}
 	
@@ -39,6 +39,12 @@ public class NoticeServiceImpl implements NoticeService {
 		mapper.updateCnt(no);
 		return mapper.read(no);
 	}
+	
+	/*
+	@Override
+	public boolean modifyCnt(Long no) {
+		return mapper.updateCnt(no) == 1;
+	}*/
 	
 	@Override
 	public boolean modify(NoticeVO notice) {
