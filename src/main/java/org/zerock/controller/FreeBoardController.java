@@ -46,8 +46,11 @@ public class FreeBoardController {
 	public void list(@ModelAttribute("cri") FCriteria cri, Model model) {
 		model.addAttribute("list", service.getList(cri));
 		int total = service.getTotal(cri);
+		
+		log.info("total:::::::::"+ total);
 		model.addAttribute("pageMaker", new FPageDTO(cri, total));
 
+	
 		
 		
 	}
@@ -77,13 +80,14 @@ public class FreeBoardController {
 	}
 
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("no") Long no, Model model,HttpServletRequest request) {
+	public void get(@RequestParam("no") Long no, @ModelAttribute("cri") FCriteria cri, Model model) {
 		log.info("get method - no: " + no);
 		FreeBoardVO vo = service.get(no);
 		model.addAttribute("freeboard", vo);
 				
-		FCriteria cri = new FCriteria();
-		model.addAttribute("cri", cri);
+		
+//		FCriteria cri = new FCriteria();
+//		model.addAttribute("cri", cri);
 		
 //
 //		String old_url = request.getHeader("referer");
@@ -91,7 +95,7 @@ public class FreeBoardController {
 	}
 
 	@PostMapping("/modify")
-	public String modify(FreeBoardVO vo, FCriteria cri, RedirectAttributes rttr) {
+	public String modify(FreeBoardVO vo, @ModelAttribute("cri") FCriteria cri, RedirectAttributes rttr) {
 		if (service.modify(vo)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", vo.getNo() + "번 글이 수정되었습니다.");
@@ -106,15 +110,15 @@ public class FreeBoardController {
 	}
 
 	@PostMapping("/remove")
-	public String remove(@RequestParam("no") Long no, RedirectAttributes rttr) {
+	public String remove(@RequestParam("no") Long no,@ModelAttribute("cri") FCriteria cri, RedirectAttributes rttr) {
 
 		if (service.remove(no)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", no + "번 글이 삭제되었습니다.");
 		}
 
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 //		rttr.addAttribute("type", cri.getType());
 //		rttr.addAttribute("keyword", cri.getKeyword());
 

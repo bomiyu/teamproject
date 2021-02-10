@@ -4,12 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.zerock.mapper.FreeBoardMapper">
-	<!-- <sql id="criteria"> <where> <foreach item="type" collection="typeArr" 
-		separator="OR"> <choose> <when test="type == 'T'.toString()"> title LIKE 
-		'%' || #{keyword} || '%' </when> <when test="type == 'C'.toString()"> content 
-		LIKE '%' || #{keyword} || '%' </when> <when test="type == 'W'.toString()"> 
-		writer LIKE '%' || #{keyword} || '%' </when> </choose> </foreach> </where> 
-		</sql> -->
+	<sql id="fcriteria">
+		<where>
+			<foreach item="type" collection="typeArr" separator="OR">
+				<choose>
+					<when test="type == 'T'.toString()"> title LIKE
+						'%' || #{keyword} || '%' </when>
+					<when test="type == 'C'.toString()"> content
+						LIKE '%' || #{keyword} || '%' </when>
+					<when test="type == 'W'.toString()">
+						member_no LIKE '%' || #{keyword} || '%' </when>
+				</choose>
+			</foreach>
+		</where>
+	</sql>
 
 	<select id="getList" resultType="org.zerock.domain.FreeBoardVO">
 <![CDATA[
@@ -45,9 +53,6 @@
 		no = #{no}
 	</update>
 
-	<select id="getTotalCount" resultType="int"> SELECT count(*) FROM
-		FreeBoard
-	</select><!-- resultType을 int로반환 -->
 
 	<!-- <update id="updateCnt"> UPDATE FreeBoard SET cnt = cnt + #{amount} 
 		WHERE no = #{no} </update> -->
@@ -62,16 +67,24 @@
 				select /*+INDEX_ASC(Freeboard pk_freeboardno)*/ 
 					rownum rn, no, title, content, regdate, cnt, member_no
 				from
-					freeboard
-					where rownum <= #{pageNum} * #{amount}
-				) 
-			WHERE rn > (#{pageNum} -1) * #{amount}
-
-		]]>
-
-
-
+					FreeBoard
+					
+					]]>
+		<include refid="fcriteria"></include>
+			
+<![CDATA[
+	 )
+	WHERE
+	 rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND #{pageNum} * #{amount}
+]]>		
 	</select>
+
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM
+		FreeBoard
+		<include refid="fcriteria"></include>
+	</select><!-- resultType을 int로반환 -->
+
 
 </mapper>
 

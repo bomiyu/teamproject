@@ -63,19 +63,11 @@
 
 							actionForm.submit();
 						});
-				/*
-				$(".move").on("click", function(e){
-					e.preventDefault();
-					actionForm.append("<input type='hidden' name='no' value='"+$(this).attr("href")+"'>");
-					actionForm.attr("action", "/freeboard/get");
-					actionForm.submit();
-				});
-				 */
+
 			});
 </script>
-
-<link rel="stylesheet" type="text/css"
-	href="${root }/resources/css/font.css">
+<%-- <link rel="stylesheet" type="text/css"
+	href="${root }/resources/css/font.css"> --%>
 <title>Insert title here</title>
 
 
@@ -91,12 +83,37 @@ h5 {
 
 
 	<div class="container mt-5 ">
-		<h5>자유게시판</h5>
+	
+	<a href='<c:url value='/freeboard/list'/>'> <h5>자유게시판</h5></a>
+		
 	</div>
 
 	<div class="container-sm mt-5">
+	<div class="col-lg-12 d-flex flex-row-reverse p-2 bd-highlight ">
+					<form id="searchForm" action='${root }/freeboard/list' method='get'
+						class="form-inline my-2 my-lg-0">
+						<select name="type" class="btn btn-outline-success  ">
+						    <option value="TWC" ${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }>제목 / 내용 / 작성자</option>
+							<option value="T" ${pageMaker.cri.type eq 'T' ? 'selected' : '' }>제목</option>
+							<option value="C" ${pageMaker.cri.type eq 'C' ? 'selected' : '' }>내용</option>
+							<option value="W" ${pageMaker.cri.type eq 'W' ? 'selected' : '' }>작성자</option>
+						</select> <input name="keyword" class="form-control" required
+							value="${pageMaker.cri.keyword }" type="search" /> 
+							<input type="hidden" name="pageNum" value=${pageMaker.cri.pageNum } /> 
+							<input type="hidden"
+							name="amount" value='${pageMaker.cri.amount }' />
+
+
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+					</form>
+				</div>
+				
 		<div class="d-flex flex-row-reverse p-2 bd-highlight">
 
+		
+				
+			
+			
 			<a href='<c:url value='/freeboard/register'/>' role="button"
 				class="btn btn-outline-success">글쓰기</a>
 
@@ -117,14 +134,13 @@ h5 {
 					<c:forEach items="${list}" var="vo" varStatus="status">
 						<tr>
 							<td>${(pageMaker.cri.pageNum -1) * pageMaker.cri.amount + status.index + 1}
-							<c:url value="/freeboard/get" var="boardLink">
-								<c:param value="${vo.no  }" name="no" />
-		<%-- 						<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
-								<c:param value="${pageMaker.cri.amount }" name="amount" /> --%>
-								<%-- 				<c:param value="${pageMaker.cri.type }" name="type" />
-								<c:param value="${pageMaker.cri.keyword }" name="keyword" /> --%>
-							</c:url>
-
+								<c:url value="/freeboard/get" var="boardLink">
+									<c:param value="${vo.no  }" name="no" />
+									<c:param value="${pageMaker.cri.pageNum }" name="pageNum" />
+									<c:param value="${pageMaker.cri.amount }" name="amount" />
+									<c:param value="${pageMaker.cri.type }" name="type" />
+									<c:param value="${pageMaker.cri.keyword }" name="keyword" />
+								</c:url>
 							<td><a class='move' href='${boardLink }'> <c:out
 										value="${vo.title}" /></a></td>
 
@@ -138,7 +154,6 @@ h5 {
 
 				</tbody>
 			</table>
-
 
 
 
@@ -167,6 +182,7 @@ h5 {
 	</div>
 
 
+
 	<div class="container-sm mt-3">
 		<div class="row justify-content-center">
 			<nav aria-label="Page navigation example">
@@ -176,13 +192,11 @@ h5 {
 						<c:url value="/freeboard/list" var="prevLink">
 							<c:param value="${pageMaker.startPage -1 }" name="pageNum" />
 							<c:param value="${pageMaker.cri.amount }" name="amount" />
-							<%-- <c:param name="type" value="${pageMaker.cri.type }"/>
-		    		<c:param name="keyword" value="${pageMaker.cri.keyword }"/> --%>
+							<c:param name="type" value="${pageMaker.cri.type }" />
+							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
 						</c:url>
-						<li class="page-item">
-							<%-- <a class="page-link" href="${prevLink }">Previous</a> --%> <a
-							class="page-link" href="${pageMaker.startPage -1 }">Previous</a>
-						</li>
+						<li class="page-item"><a class="page-link"
+							href="${pageMaker.startPage -1 }">Previous</a></li>
 					</c:if>
 
 					<c:forEach var="num" begin="${pageMaker.startPage }"
@@ -190,13 +204,12 @@ h5 {
 						<c:url value="/freeboard/list" var="pageLink">
 							<c:param name="pageNum" value="${num }" />
 							<c:param name="amount" value="${pageMaker.cri.amount }" />
-							<%-- 	<c:param name="type" value="${pageMaker.cri.type }"/>
-		    		<c:param name="keyword" value="${pageMaker.cri.keyword }"/> --%>
+							<c:param name="type" value="${pageMaker.cri.type }" />
+							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
 						</c:url>
 						<li
 							class="page-item ${pageMaker.cri.pageNum eq num ? 'active' : '' }">
-							<%-- <a class="page-link" href="${pageLink }">${num }</a> --%> <a
-							class="page-link" href="${num }">${num }</a>
+							<a class="page-link" href="${num }">${num }</a>
 						</li>
 					</c:forEach>
 
@@ -204,26 +217,29 @@ h5 {
 						<c:url value="/freeboard/list" var="nextLink">
 							<c:param name="pageNum" value="${pageMaker.endPage +1 }" />
 							<c:param name="amount" value="${pageMaker.cri.amount }" />
-							<%-- 		<c:param name="type" value="${pageMaker.cri.type }"/>
-		    		<c:param name="keyword" value="${pageMaker.cri.keyword }"/> --%>
+							<c:param name="type" value="${pageMaker.cri.type }" />
+							<c:param name="keyword" value="${pageMaker.cri.keyword }" />
 						</c:url>
-						<li class="page-item">
-							<%-- <a class="page-link" href="${nextLink }">Next</a> --%> <a
-							class="page-link" href="${pageMaker.endPage +1 }">Next</a>
-						</li>
+						<li class="page-item"><a class="page-link"
+							href="${pageMaker.endPage +1 }">Next</a></li>
 					</c:if>
 				</ul>
 			</nav>
 		</div>
 	</div>
+
+
+
 	<div class="d-none">
-			<form id="actionForm" action="${root }/freeboard/list">
-				<input name="pageNum" value="${pageMaker.cri.pageNum }" /> <input
-					name="amount" value="${pageMaker.cri.amount }" />
-			<%-- <input
+		<form id="actionForm" action="${root }/freeboard/list">
+			<input name="pageNum" value="${pageMaker.cri.pageNum }" /> <input
+				name="amount" value="${pageMaker.cri.amount }" /> <input
 				name="type" value="${pageMaker.cri.type }" /> <input name="keyword"
-				value="${pageMaker.cri.keyword }" /> <input type="submit" /> --%>
+				value="${pageMaker.cri.keyword }" /> <input type="submit" />
 		</form>
-		</div>
+	</div>
+
+
+
 </body>
 </html>

@@ -100,13 +100,13 @@ public class FreeBoardControllerTests {
 
 	@Test
 	public void testGet() throws Exception {
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/freeboard/get").param("no", "1")).andReturn();
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/freeboard/get").param("no", "9730243")).andReturn();
 		String viewName = result.getModelAndView().getViewName();
 		Map<String, Object> modelMap = result.getModelAndView().getModel();
 
 		assertEquals("freeboard/get", viewName);
-		assertNotNull(modelMap.get("vo"));
-//		assertEquals(new Long(1), ((FreeBoardVO) modelMap.get("vo")).getNo());
+		assertNotNull(modelMap.get("freeboard"));
+		assertEquals(new Long(9730243), ((FreeBoardVO) modelMap.get("freeboard")).getNo());
 	}
 
 	@Test
@@ -173,5 +173,15 @@ public class FreeBoardControllerTests {
 		List list = (List) model.get("list");
 
 		assertEquals(10, list.size());
+	}
+	
+	@Test
+	public void testSearch() {
+		FCriteria cri = new FCriteria();
+		cri.setKeyword("새로");
+		cri.setType("TC");
+		
+		List<FreeBoardVO> list = mapper.getListWithPaging(cri);
+		list.forEach(FreeBoard-> log.info(FreeBoard));
 	}
 }
