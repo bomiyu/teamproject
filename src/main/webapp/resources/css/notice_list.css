@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#list-head th:nth-child(1) {
+	width: 10%;
+}
+
+#list-head th:nth-child(2) {
+	width: 18%;
+}
+
+#list-head th:nth-child(3) {
+	width: 37%;
+}
+
+#list-head th:nth-child(4) {
+	width: 25%;
+}
+
+#list-head th:nth-child(5) {
+	width: 10%;
+}
+
+.list-item {
+	cursor: pointer;
+}

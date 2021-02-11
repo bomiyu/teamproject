@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="m" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html> 
+=======
+<html>
+>>>>>>> branch 'mountain_team' of https://github.com/bomiyu/teamproject.git
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>

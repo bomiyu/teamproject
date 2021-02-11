@@ -30,6 +30,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/sts-bundle/sts-3.9.13.RELEASE/lombok.jar"/>
 	<classpathentry kind="lib" path="C:/Users/youbu/OneDrive/문서/jdbclib/ojdbc8.jar"/>
@@ -37,5 +38,18 @@
 	<classpathentry kind="lib" path="C:/Users/youbu/OneDrive/문서/jdbclib/osdt_cert.jar"/>
 	<classpathentry kind="lib" path="C:/Users/youbu/OneDrive/문서/jdbclib/osdt_core.jar"/>
 	<classpathentry kind="lib" path="C:/Users/youbu/OneDrive/문서/jdbclib/ucp.jar"/>
+=======
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/oraclepki.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/osdt_cert.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/osdt_core.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ucp.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/admin/Documents/sts-bundle/lombok.jar"/>
+>>>>>>> branch 'mountain_team' of https://github.com/bomiyu/teamproject.git
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
